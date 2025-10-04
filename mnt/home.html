@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workbench - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        .btn-clickable {
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+        }
+
+        .btn-clickable:hover {
+            background-color: #f3f4f6 !important;
+            transform: scale(1.05);
+        }
+
+        .btn-clickable * {
+            pointer-events: none;
+        }
+
+        /* Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #39b59a;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #39b59a;
+        }
+
+        /* Timeline */
+        .timeline-line {
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: 0;
+            width: 2px;
+            background: #e5e7eb;
+        }
+
+        .timeline-dot {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .offline-banner {
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Offline Banner (hidden by default) -->
+        <div id="offlineBanner" class="hidden bg-gray-100 border-b border-gray-200 p-3 px-6">
+            <p class="text-sm font-medium text-gray-700">Offline today, submission recorded</p>
+            <div class="flex items-center justify-between mt-1">
+                <p class="text-xs text-gray-500">Today's clock-in 13:00–22:00 · 01:12 until next switch</p>
+                <a href="worktime.html" class="text-xs text-emerald-600 font-medium hover:underline">Adjust
+                    clock-in</a>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <h1 class="text-xl font-bold text-gray-900">Workbench</h1>
+            <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center btn-clickable">
+                <i class="fas fa-bell text-gray-600 text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 scroll-container" style="height: calc(100% - 110px);">
+
+            <!-- 1) Top Status Area -->
+            <div class="p-6 pb-4 bg-white border-b border-gray-100">
+                <div class="flex items-center justify-between">
+                    <!-- Status Badge -->
+                    <div class="flex items-center space-x-2">
+                        <span
+                            class="bg-green-100 text-green-800 px-3 py-1.5 rounded-full text-sm font-semibold flex items-center space-x-1">
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                            <span id="statusText">Online</span>
+                        </span>
+                    </div>
+
+                    <!-- Robot Auto Switch -->
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm text-gray-600 font-medium">Auto-On/Off</span>
+                        <div class="relative inline-block w-12 h-7 align-middle select-none">
+                            <input type="checkbox" id="robotSwitch" checked
+                                class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer transition-all duration-200"
+                                style="top: 2px; left: 2px;" />
+                            <label for="robotSwitch"
+                                class="toggle-label block overflow-hidden h-7 rounded-full bg-emerald-500 cursor-pointer"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2) Today's KPI -->
+            <div class="p-6 pb-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Today's Overview</h2>
+                <div class="grid grid-cols-3 gap-3">
+                    <a href="orders.html?tab=ongoing" class="bg-white p-4 rounded-2xl card-shadow card-hover text-center">
+                        <p class="text-2xl font-bold text-blue-600">2</p>
+                        <p class="text-xs text-gray-600 mt-1">Ongoing</p>
+                    </a>
+                    <a href="orders.html?tab=pending" class="bg-white p-4 rounded-2xl card-shadow card-hover text-center">
+                        <p class="text-2xl font-bold text-yellow-600">1</p>
+                        <p class="text-xs text-gray-600 mt-1">Pending</p>
+                    </a>
+                    <a href="income.html?filter=unsettled"
+                        class="bg-white p-4 rounded-2xl card-shadow card-hover text-center">
+                        <p class="text-2xl font-bold text-purple-600">3</p>
+                        <p class="text-xs text-gray-600 mt-1">Unsettled</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3) Situational Reminder Cards -->
+            <div class="px-6 pb-4 space-y-3">
+                <!-- Debt Card (Red) -->
+                <div class="bg-red-50 border border-red-200 p-4 rounded-2xl">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-1">
+                                <i class="fas fa-exclamation-triangle text-red-600"></i>
+                                <h3 class="font-semibold text-red-900">Outstanding Debt</h3>
+                            </div>
+                            <p class="text-sm text-red-800">Your current debt is <span
+                                    class="font-bold">THB 1,200</span></p>
+                        </div>
+                        <a href="repay.html"
+                            class="bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-red-700 transition-all whitespace-nowrap">
+                            Go to make up
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Withdrawable Card (Green) -->
+                <div class="bg-green-50 border border-green-200 p-4 rounded-2xl">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-1">
+                                <i class="fas fa-wallet text-green-600"></i>
+                                <h3 class="font-semibold text-green-900">Funds Available</h3>
+                            </div>
+                            <p class="text-sm text-green-800">Withdrawable <span class="font-bold">THB 3,400</span></p>
+                        </div>
+                        <a href="withdraw.html"
+                            class="bg-green-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-green-700 transition-all whitespace-nowrap">
+                            Apply for withdrawal
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Robot Shutdown Card (Gray) - hidden by default -->
+                <div id="robotOfflineCard" class="bg-gray-100 border border-gray-300 p-4 rounded-2xl hidden">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-1">
+                                <i class="fas fa-power-off text-gray-600"></i>
+                                <h3 class="font-semibold text-gray-900">Robot Offline</h3>
+                            </div>
+                            <p class="text-sm text-gray-700">The robot is shut down and will not automatically go online
+                                today</p>
+                        </div>
+                        <button id="turnOnRobotBtn"
+                            class="bg-gray-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-gray-700 transition-all whitespace-nowrap">
+                            Turn on
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4) Pending Preview -->
+            <div class="px-6 pb-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Pending Orders</h2>
+                <div class="space-y-3">
+                    <!-- Pending Order 1 -->
+                    <div class="bg-white p-4 rounded-2xl card-shadow">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span
+                                        class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">Pending</span>
+                                    <span class="text-xs text-gray-500">#ORD-2024-010</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1">Deep Tissue Massage</h3>
+                                <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                    <span><i class="fas fa-location-dot text-gray-400 text-xs mr-1"></i>2.3 km</span>
+                                    <span><i class="fas fa-clock text-gray-400 text-xs mr-1"></i>~15 min</span>
+                                    <span class="font-semibold text-emerald-600">฿1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-hourglass-half text-orange-500 text-sm"></i>
+                                <span class="text-sm text-gray-600">Accept within <span
+                                        class="font-semibold text-orange-600">14:32</span></span>
+                            </div>
+                            <a href="order-detail.html?id=010"
+                                class="text-emerald-600 font-medium text-sm hover:underline">View Details →</a>
+                        </div>
+                    </div>
+
+                    <!-- Pending Order 2 -->
+                    <div class="bg-white p-4 rounded-2xl card-shadow">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span
+                                        class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium">Pending</span>
+                                    <span class="text-xs text-gray-500">#ORD-2024-011</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1">Sports Massage</h3>
+                                <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                    <span><i class="fas fa-location-dot text-gray-400 text-xs mr-1"></i>1.8 km</span>
+                                    <span><i class="fas fa-clock text-gray-400 text-xs mr-1"></i>~12 min</span>
+                                    <span class="font-semibold text-emerald-600">฿1,500</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-hourglass-half text-orange-500 text-sm"></i>
+                                <span class="text-sm text-gray-600">Accept within <span
+                                        class="font-semibold text-orange-600">12:05</span></span>
+                            </div>
+                            <a href="order-detail.html?id=011"
+                                class="text-emerald-600 font-medium text-sm hover:underline">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5) Today's Timeline -->
+            <div class="px-6 pb-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Today's Timeline</h2>
+                <div class="bg-white p-4 rounded-2xl card-shadow">
+                    <div class="relative space-y-6">
+                        <!-- Timeline vertical line -->
+                        <div class="timeline-line"></div>
+
+                        <!-- Node 1: Auto Login -->
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="timeline-dot w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-power-off text-blue-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1 pt-1">
+                                <p class="font-semibold text-gray-900">Automatic Login</p>
+                                <p class="text-sm text-gray-500">13:00</p>
+                            </div>
+                        </div>
+
+                        <!-- Node 2: Completed Order #A231 -->
+                        <a href="order-detail.html?id=A231" class="flex items-start space-x-3 cursor-pointer group">
+                            <div
+                                class="timeline-dot w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-all">
+                                <i class="fas fa-check text-green-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1 pt-1">
+                                <p class="font-semibold text-gray-900 group-hover:text-emerald-600 transition-all">
+                                    Complete #A231</p>
+                                <p class="text-sm text-gray-500">15:30 · Aromatherapy Session</p>
+                            </div>
+                        </a>
+
+                        <!-- Node 3: Completed Order #A232 -->
+                        <a href="order-detail.html?id=A232" class="flex items-start space-x-3 cursor-pointer group">
+                            <div
+                                class="timeline-dot w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-all">
+                                <i class="fas fa-check text-green-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1 pt-1">
+                                <p class="font-semibold text-gray-900 group-hover:text-emerald-600 transition-all">
+                                    Complete #A232</p>
+                                <p class="text-sm text-gray-500">17:30 · Deep Tissue Massage</p>
+                            </div>
+                        </a>
+
+                        <!-- Node 4: Completed Order #A233 -->
+                        <a href="order-detail.html?id=A233" class="flex items-start space-x-3 cursor-pointer group">
+                            <div
+                                class="timeline-dot w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 transition-all">
+                                <i class="fas fa-check text-green-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1 pt-1">
+                                <p class="font-semibold text-gray-900 group-hover:text-emerald-600 transition-all">
+                                    Complete #A233</p>
+                                <p class="text-sm text-gray-500">19:45 · Sports Massage</p>
+                            </div>
+                        </a>
+
+                        <!-- Node 5: Auto Logout -->
+                        <div class="flex items-start space-x-3">
+                            <div
+                                class="timeline-dot w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-moon text-gray-600 text-sm"></i>
+                            </div>
+                            <div class="flex-1 pt-1">
+                                <p class="font-semibold text-gray-900">Automatic Logout</p>
+                                <p class="text-sm text-gray-500">22:00 (scheduled)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6) Quick Access -->
+            <div class="px-6 pb-8">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Quick Access</h2>
+                <div class="grid grid-cols-3 gap-3">
+                    <a href="withdraw.html"
+                        class="bg-white p-4 rounded-2xl card-shadow card-hover flex flex-col items-center text-center space-y-2">
+                        <div class="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-hand-holding-dollar text-green-600 text-lg"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900">Withdraw</p>
+                    </a>
+
+                    <a href="repay.html"
+                        class="bg-white p-4 rounded-2xl card-shadow card-hover flex flex-col items-center text-center space-y-2">
+                        <div class="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-money-bill-transfer text-red-600 text-lg"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900">Repayment</p>
+                    </a>
+
+                    <a href="#"
+                        class="bg-white p-4 rounded-2xl card-shadow card-hover flex flex-col items-center text-center space-y-2 opacity-75">
+                        <div class="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-blue-600 text-lg"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900">Training Center</p>
+                    </a>
+
+                    <a href="#"
+                        class="bg-white p-4 rounded-2xl card-shadow card-hover flex flex-col items-center text-center space-y-2 opacity-75">
+                        <div class="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-user-plus text-purple-600 text-lg"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900">Earn New Customers</p>
+                    </a>
+
+                    <a href="#"
+                        class="bg-white p-4 rounded-2xl card-shadow card-hover flex flex-col items-center text-center space-y-2 opacity-75">
+                        <div class="w-12 h-12 bg-orange-100 rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-store text-orange-600 text-lg"></i>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-900">Mall</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="home.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-briefcase text-lg gradient-text"></i>
+                    <span class="text-xs font-medium gradient-text">Workbench</span>
+                    <div class="w-6 h-0.5 gradient-bg rounded-full"></div>
+                </a>
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500">Me</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Early Leave Modal -->
+        <div id="earlyLeaveModal"
+            class="hidden absolute inset-0 z-50 flex items-center justify-center modal-backdrop">
+            <div class="bg-white rounded-3xl p-6 m-6 w-full max-w-sm shadow-2xl">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">Early Leave</h3>
+
+                <div class="space-y-4">
+                    <!-- Reason -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Reason<span
+                                class="text-red-500">*</span></label>
+                        <select id="leaveReason"
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <option value="">Select reason</option>
+                            <option value="personal">Personal matter</option>
+                            <option value="health">Health issue</option>
+                            <option value="emergency">Emergency</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Time (readonly, current time) -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Time</label>
+                        <input type="text" id="leaveTime" readonly
+                            class="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-xl text-gray-600 cursor-not-allowed">
+                    </div>
+
+                    <!-- Notes -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                        <textarea id="leaveNotes" rows="3"
+                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                            placeholder="Optional notes..."></textarea>
+                    </div>
+                </div>
+
+                <div class="flex space-x-3 mt-6">
+                    <button id="cancelLeaveBtn"
+                        class="flex-1 py-3 border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all">
+                        Cancel
+                    </button>
+                    <button id="confirmLeaveBtn"
+                        class="flex-1 gradient-bg text-white py-3 rounded-xl text-sm font-medium hover:shadow-lg transition-all">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300 z-50">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span>Action completed</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+
+        .unread-dot {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Enhanced UI styles */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Smooth scrolling */
+        .smooth-scroll {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        /* Button hover effects */
+        .btn-hover {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-hover:hover {
+            background-color: #f3f4f6;
+        }
+
+        /* Button hover and cursor fixes */
+        .btn-clickable {
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+        }
+
+        .btn-clickable:hover {
+            background-color: #f3f4f6 !important;
+            transform: scale(1.05);
+        }
+
+        .btn-clickable * {
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <h1 class="text-xl font-bold text-gray-900" data-i18n="messages.title">Messages</h1>
+            <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center btn-hover">
+                <i class="fas fa-search text-gray-600 text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 smooth-scroll" style="height: calc(100% - 110px);">
+
+            <!-- Pinned System Messages -->
+            <div class="p-4">
+                <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3"
+                    data-i18n="messages.system_notifications">System Notifications</h2>
+
+                <!-- System Message 1 - Module: MessageItem -->
+                <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-3">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-bell text-white text-sm"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="font-semibold text-blue-900" data-i18n="system.cbody_team">CBODY Team</h3>
+                                <span class="text-xs text-blue-600">2h ago</span>
+                            </div>
+                            <p class="text-sm text-blue-800" data-i18n="system.welcome_message">Welcome to CBODY
+                                Partner! Your account has been approved and you're ready to start accepting orders.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Message 2 -->
+                <div class="bg-green-50 border border-green-200 rounded-2xl p-4 mb-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-check-circle text-white text-sm"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="font-semibold text-green-900" data-i18n="system.payment_processed">Payment
+                                    Processed</h3>
+                                <span class="text-xs text-green-600">1d ago</span>
+                            </div>
+                            <p class="text-sm text-green-800" data-i18n="system.payment_message">Your payment of ฿1,500
+                                for order #ORD-2024-003 has been processed successfully.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Messages -->
+            <div class="px-4 pb-4">
+                <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3"
+                    data-i18n="messages.customer_messages">Customer Messages</h2>
+
+                <div class="space-y-3">
+                    <!-- Message Item 1 - Active conversation with unread -->
+                    <a href="chat.html" class="block">
+                        <div class="bg-white rounded-2xl p-4 card-shadow card-hover">
+                            <div class="flex items-center space-x-3">
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=48&h=48&fit=crop&crop=face"
+                                        alt="Sarah Johnson" class="w-12 h-12 rounded-full">
+                                    <!-- Online indicator -->
+                                    <div
+                                        class="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 border-2 border-white rounded-full">
+                                    </div>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h3 class="font-semibold text-gray-900 truncate" data-i18n="customer.sarah">
+                                            Sarah Johnson</h3>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-xs text-gray-500">5m ago</span>
+                                            <div class="w-2 h-2 bg-red-500 rounded-full unread-dot"></div>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-600 truncate" data-i18n="chat.sample_message1">Hi! I'm
+                                        running a bit late, will be there in 10 minutes</p>
+                                    <div class="flex items-center justify-between mt-1">
+                                        <span class="text-xs text-gray-400" data-i18n="order_ref">#ORD-2024-001</span>
+                                        <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">2</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Message Item 2 - Recent conversation -->
+                    <a href="chat.html" class="block">
+                        <div class="bg-white rounded-2xl p-4 card-shadow card-hover">
+                            <div class="flex items-center space-x-3">
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=48&h=48&fit=crop&crop=face"
+                                        alt="Mike Chen" class="w-12 h-12 rounded-full">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h3 class="font-semibold text-gray-900 truncate" data-i18n="customer.mike">Mike
+                                            Chen</h3>
+                                        <span class="text-xs text-gray-500">2h ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 truncate" data-i18n="chat.sample_message2">Thank you
+                                        for the excellent service! 5 stars ⭐⭐⭐⭐⭐</p>
+                                    <span class="text-xs text-gray-400" data-i18n="order_ref2">#ORD-2024-002</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Message Item 3 - Older conversation -->
+                    <a href="chat.html" class="block">
+                        <div class="bg-white rounded-2xl p-4 card-shadow card-hover">
+                            <div class="flex items-center space-x-3">
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=48&h=48&fit=crop&crop=face"
+                                        alt="Anna Wilson" class="w-12 h-12 rounded-full">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h3 class="font-semibold text-gray-900 truncate" data-i18n="customer.anna">Anna
+                                            Wilson</h3>
+                                        <span class="text-xs text-gray-500">1d ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 truncate" data-i18n="chat.sample_message3">Could you
+                                        please bring your own massage oil? I have sensitive skin</p>
+                                    <span class="text-xs text-gray-400" data-i18n="order_ref3">#ORD-2024-003</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Message Item 4 - Archived conversation -->
+                    <a href="chat.html" class="block">
+                        <div class="bg-white rounded-2xl p-4 card-shadow opacity-75">
+                            <div class="flex items-center space-x-3">
+                                <div class="relative">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=48&h=48&fit=crop&crop=face"
+                                        alt="David Park" class="w-12 h-12 rounded-full">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h3 class="font-semibold text-gray-900 truncate" data-i18n="customer.david">
+                                            David Park</h3>
+                                        <span class="text-xs text-gray-500">3d ago</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 truncate" data-i18n="chat.sample_message4">Perfect
+                                        timing and great technique. Will book again!</p>
+                                    <span class="text-xs text-gray-400" data-i18n="order_ref4">#ORD-2024-004</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Message Item 5 - System conversation -->
+                    <div class="bg-white rounded-2xl p-4 card-shadow border border-gray-100">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-robot text-gray-500"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between mb-1">
+                                    <h3 class="font-semibold text-gray-900" data-i18n="system.support_bot">CBODY Support
+                                    </h3>
+                                    <span class="text-xs text-gray-500">1w ago</span>
+                                </div>
+                                <p class="text-sm text-gray-600 truncate" data-i18n="system.support_message">How can we
+                                    help you today? Type 'help' for common questions.</p>
+                                <div class="flex items-center mt-1">
+                                    <span class="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full"
+                                        data-i18n="system.support_tag">Support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Messages -->
+            <div class="p-4">
+                <button class="w-full py-3 border border-gray-200 rounded-xl text-sm font-medium text-gray-700"
+                    data-i18n="messages.load_more">Load More Messages</button>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar - Module: TabBar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="home.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-briefcase text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.workbench">Workbench</span>
+                </a>
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.orders">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg gradient-text"></i>
+                    <span class="text-xs font-medium gradient-text" data-i18n="tabs.messages">Messages</span>
+                    <div class="w-6 h-0.5 gradient-bg rounded-full"></div>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.me">Me</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Toast Notification - Module: Toast -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-blue-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-info-circle"></i>
+                <span data-i18n="toast.message_marked_read">Message marked as read</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 ${type === 'success' ? 'bg-green-500' : type === 'warning' ? 'bg-yellow-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+                } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+
+        // Demo: Mark messages as read when clicked
+        document.querySelectorAll('a[href="chat.html"]').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const unreadBadge = this.querySelector('.unread-dot');
+                const unreadCount = this.querySelector('.bg-red-500');
+                if (unreadBadge) unreadBadge.remove();
+                if (unreadCount) unreadCount.remove();
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Smooth scrolling */
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        .time-slot {
+            transition: all 0.2s ease;
+        }
+
+        .time-slot.active {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <a href="me.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-gray-900" data-i18n="schedule.title">My Schedule</h1>
+            <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-plus text-gray-600 text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 scroll-container" style="height: calc(100% - 110px);">
+            <!-- Week Selector -->
+            <div class="p-4 bg-white border-b border-gray-100">
+                <div class="flex items-center justify-between mb-4">
+                    <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-chevron-left text-gray-600 text-sm"></i>
+                    </button>
+                    <h2 class="font-semibold text-gray-900" data-i18n="schedule.current_week">Sep 16 - Sep 22, 2024</h2>
+                    <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="fas fa-chevron-right text-gray-600 text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- Week Days -->
+                <div class="grid grid-cols-7 gap-2">
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 mb-2" data-i18n="days.mon">Mon</p>
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-700">
+                            16</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 mb-2" data-i18n="days.tue">Tue</p>
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-700">
+                            17</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 mb-2" data-i18n="days.wed">Wed</p>
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-700">
+                            18</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 mb-2" data-i18n="days.thu">Thu</p>
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-700">
+                            19</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 mb-2" data-i18n="days.fri">Fri</p>
+                        <div
+                            class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-sm font-medium text-white">
+                            20</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 mb-2" data-i18n="days.sat">Sat</p>
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-700">
+                            21</div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-gray-500 mb-2" data-i18n="days.sun">Sun</p>
+                        <div
+                            class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-medium text-gray-700">
+                            22</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Slots -->
+            <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4" data-i18n="schedule.available_hours">Available
+                    Hours - Friday</h3>
+
+                <!-- Morning Slots -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-700 mb-3" data-i18n="schedule.morning">Morning</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="time-slot p-3 border-2 border-gray-200 rounded-xl text-center" data-time="08:00">
+                            <p class="font-medium text-gray-700">8:00 AM</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.available">Available</p>
+                        </button>
+                        <button class="time-slot p-3 border-2 border-gray-200 rounded-xl text-center" data-time="09:00">
+                            <p class="font-medium text-gray-700">9:00 AM</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.available">Available</p>
+                        </button>
+                        <button class="time-slot active p-3 border-2 border-transparent rounded-xl text-center"
+                            data-time="10:00">
+                            <p class="font-medium text-white">10:00 AM</p>
+                            <p class="text-xs text-white/80" data-i18n="schedule.selected">Selected</p>
+                        </button>
+                        <button class="time-slot p-3 border-2 border-gray-200 rounded-xl text-center" data-time="11:00">
+                            <p class="font-medium text-gray-700">11:00 AM</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.available">Available</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Afternoon Slots -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-700 mb-3" data-i18n="schedule.afternoon">Afternoon</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="time-slot p-3 border-2 border-gray-200 rounded-xl text-center" data-time="13:00">
+                            <p class="font-medium text-gray-700">1:00 PM</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.available">Available</p>
+                        </button>
+                        <button class="time-slot p-3 border-2 border-gray-200 rounded-xl text-center" data-time="14:00">
+                            <p class="font-medium text-gray-700">2:00 PM</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.available">Available</p>
+                        </button>
+                        <button class="time-slot active p-3 border-2 border-transparent rounded-xl text-center"
+                            data-time="15:00">
+                            <p class="font-medium text-white">3:00 PM</p>
+                            <p class="text-xs text-white/80" data-i18n="schedule.selected">Selected</p>
+                        </button>
+                        <button class="time-slot p-3 border-2 border-gray-200 rounded-xl text-center" data-time="16:00">
+                            <p class="font-medium text-gray-700">4:00 PM</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.available">Available</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Evening Slots -->
+                <div class="mb-6">
+                    <h4 class="text-sm font-medium text-gray-700 mb-3" data-i18n="schedule.evening">Evening</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="time-slot active p-3 border-2 border-transparent rounded-xl text-center"
+                            data-time="18:00">
+                            <p class="font-medium text-white">6:00 PM</p>
+                            <p class="text-xs text-white/80" data-i18n="schedule.selected">Selected</p>
+                        </button>
+                        <button class="time-slot active p-3 border-2 border-transparent rounded-xl text-center"
+                            data-time="19:00">
+                            <p class="font-medium text-white">7:00 PM</p>
+                            <p class="text-xs text-white/80" data-i18n="schedule.selected">Selected</p>
+                        </button>
+                        <button class="time-slot p-3 border-2 border-gray-200 rounded-xl text-center" data-time="20:00">
+                            <p class="font-medium text-gray-700">8:00 PM</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.available">Available</p>
+                        </button>
+                        <button
+                            class="time-slot p-3 border-2 border-gray-300 bg-gray-100 rounded-xl text-center opacity-50"
+                            disabled>
+                            <p class="font-medium text-gray-400">9:00 PM</p>
+                            <p class="text-xs text-gray-400" data-i18n="schedule.booked">Booked</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="space-y-3 mb-6">
+                    <button class="w-full p-4 bg-blue-50 border border-blue-200 rounded-2xl text-center">
+                        <i class="fas fa-copy text-blue-600 mb-2"></i>
+                        <p class="font-medium text-blue-900" data-i18n="schedule.copy_week">Copy This Week to Next</p>
+                        <p class="text-sm text-blue-700" data-i18n="schedule.copy_week_desc">Apply same schedule pattern
+                        </p>
+                    </button>
+
+                    <button class="w-full p-4 bg-yellow-50 border border-yellow-200 rounded-2xl text-center">
+                        <i class="fas fa-calendar-xmark text-yellow-600 mb-2"></i>
+                        <p class="font-medium text-yellow-900" data-i18n="schedule.vacation_mode">Vacation Mode</p>
+                        <p class="text-sm text-yellow-700" data-i18n="schedule.vacation_desc">Block all time slots</p>
+                    </button>
+                </div>
+
+                <!-- Schedule Stats -->
+                <div class="bg-white p-4 rounded-2xl card-shadow">
+                    <h4 class="font-semibold text-gray-900 mb-3" data-i18n="schedule.weekly_stats">This Week</h4>
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div>
+                            <p class="text-2xl font-bold gradient-text">24</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.available_slots">Available</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-blue-600">8</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.booked_slots">Booked</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-gray-600">3</p>
+                            <p class="text-xs text-gray-500" data-i18n="schedule.blocked_slots">Blocked</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="absolute bottom-16 left-0 right-0 bg-white border-t border-gray-100 p-4">
+            <button class="w-full gradient-bg text-white py-4 rounded-2xl font-semibold" id="saveSchedule"
+                data-i18n="schedule.save">Save Schedule</button>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.orders">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.messages">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.me">Me</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span data-i18n="toast.schedule_saved">Schedule saved successfully!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Time slot toggle functionality
+        document.querySelectorAll('.time-slot:not([disabled])').forEach(slot => {
+            slot.addEventListener('click', function () {
+                this.classList.toggle('active');
+                const statusText = this.querySelector('p:last-child');
+                if (this.classList.contains('active')) {
+                    statusText.textContent = 'Selected';
+                    statusText.className = 'text-xs text-white/80';
+                    this.querySelector('p:first-child').className = 'font-medium text-white';
+                } else {
+                    statusText.textContent = 'Available';
+                    statusText.className = 'text-xs text-gray-500';
+                    this.querySelector('p:first-child').className = 'font-medium text-gray-700';
+                }
+            });
+        });
+
+        // Save schedule
+        document.getElementById('saveSchedule').addEventListener('click', function () {
+            showToast('Schedule saved successfully!', 'success');
+
+            // Update stats (demo)
+            setTimeout(() => {
+                const selectedSlots = document.querySelectorAll('.time-slot.active').length;
+                // Update UI stats here
+            }, 1000);
+        });
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 ${type === 'success' ? 'bg-green-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-red-500'
+                } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Smooth scrolling */
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <a href="me.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-gray-900" data-i18n="income.title">Income & Bills</h1>
+            <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-download text-gray-600 text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 scroll-container" style="height: calc(100% - 110px);">
+            <!-- Current Period Summary -->
+            <div class="p-6 bg-white border-b border-gray-100">
+                <div class="text-center mb-6">
+                    <p class="text-sm text-gray-500 mb-2" data-i18n="income.current_period">September 2024</p>
+                    <p class="text-4xl font-bold gradient-text">฿18,450</p>
+                    <p class="text-sm text-gray-600" data-i18n="income.total_earnings">Total Earnings</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-green-50 p-4 rounded-2xl text-center">
+                        <p class="text-2xl font-bold text-green-700">฿15,200</p>
+                        <p class="text-sm text-green-600" data-i18n="income.service_fees">Service Fees</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-2xl text-center">
+                        <p class="text-2xl font-bold text-blue-700">฿3,250</p>
+                        <p class="text-sm text-blue-600" data-i18n="income.tips_bonus">Tips & Bonus</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payout Status -->
+            <div class="p-6 bg-white border-b border-gray-100">
+                <h3 class="font-semibold text-gray-900 mb-4" data-i18n="income.payout_status">Payout Status</h3>
+                <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-2xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium text-yellow-900" data-i18n="income.next_payout">Next Payout</span>
+                        <span class="text-sm text-yellow-700">Oct 1, 2024</span>
+                    </div>
+                    <p class="text-2xl font-bold text-yellow-900">฿18,450</p>
+                    <p class="text-sm text-yellow-700 mt-2" data-i18n="income.payout_note">Automatic transfer to your
+                        bank account</p>
+                </div>
+            </div>
+
+            <!-- Past Periods -->
+            <div class="p-6">
+                <h3 class="font-semibold text-gray-900 mb-4" data-i18n="income.past_periods">Past Periods</h3>
+                <div class="space-y-3">
+                    <div class="bg-white p-4 rounded-2xl card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-900">August 2024</h4>
+                                <p class="text-sm text-gray-500">42 services completed</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-gray-900">฿22,100</p>
+                                <p class="text-xs text-green-600" data-i18n="income.paid">Paid</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-2xl card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-900">July 2024</h4>
+                                <p class="text-sm text-gray-500">38 services completed</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-gray-900">฿19,850</p>
+                                <p class="text-xs text-green-600" data-i18n="income.paid">Paid</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-2xl card-shadow">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h4 class="font-medium text-gray-900">June 2024</h4>
+                                <p class="text-sm text-gray-500">35 services completed</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-gray-900">฿17,200</p>
+                                <p class="text-xs text-green-600" data-i18n="income.paid">Paid</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="w-full py-3 mt-4 border border-gray-200 rounded-xl text-sm font-medium text-gray-700"
+                    data-i18n="income.view_all">View All Periods</button>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.orders">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.messages">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.me">Me</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-blue-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-download"></i>
+                <span data-i18n="toast.export_started">Export started. Check your email.</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferences - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Smooth scrolling */
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background: #e5e7eb;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(22px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <a href="me.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-gray-900" data-i18n="preferences.title">Preferences</h1>
+            <div class="w-8"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 scroll-container" style="height: calc(100% - 110px);">
+            <!-- Acceptance Settings -->
+            <div class="p-6 bg-white border-b border-gray-100">
+                <h3 class="font-semibold text-gray-900 mb-4" data-i18n="preferences.acceptance">Acceptance Settings</h3>
+
+                <div class="space-y-4">
+                    <!-- Auto Accept -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-medium text-gray-900" data-i18n="preferences.auto_accept">Auto Accept Orders
+                            </h4>
+                            <p class="text-sm text-gray-500" data-i18n="preferences.auto_accept_desc">Automatically
+                                accept orders within your criteria</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                    </div>
+
+                    <!-- Max Distance -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-medium text-gray-900" data-i18n="preferences.max_distance">Maximum Distance
+                            </h4>
+                            <span class="text-sm font-semibold text-gray-700">15 km</span>
+                        </div>
+                        <input type="range" min="5" max="50" value="15"
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>5 km</span>
+                            <span>50 km</span>
+                        </div>
+                    </div>
+
+                    <!-- Deposit Free Radius -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-medium text-gray-900" data-i18n="preferences.deposit_free">Deposit-free
+                                Radius</h4>
+                            <span class="text-sm font-semibold text-gray-700">8 km</span>
+                        </div>
+                        <input type="range" min="0" max="20" value="8"
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>0 km</span>
+                            <span>20 km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="p-6 bg-white border-b border-gray-100">
+                <h3 class="font-semibold text-gray-900 mb-4" data-i18n="preferences.personal">Personal Information</h3>
+
+                <div class="space-y-4">
+                    <!-- Display Name -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2"
+                            data-i18n="preferences.display_name">Display Name</label>
+                        <input type="text" value="Alex Thompson"
+                            class="w-full p-3 border border-gray-200 rounded-xl text-gray-900">
+                    </div>
+
+                    <!-- Avatar -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2"
+                            data-i18n="preferences.avatar">Profile Photo</label>
+                        <div class="flex items-center space-x-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=face"
+                                alt="Profile" class="w-15 h-15 rounded-full">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-medium"
+                                data-i18n="preferences.change_photo">Change Photo</button>
+                        </div>
+                    </div>
+
+                    <!-- City -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2"
+                            data-i18n="preferences.city">City</label>
+                        <select class="w-full p-3 border border-gray-200 rounded-xl text-gray-900">
+                            <option>Bangkok</option>
+                            <option>Chiang Mai</option>
+                            <option>Phuket</option>
+                            <option>Pattaya</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notification Settings -->
+            <div class="p-6 bg-white border-b border-gray-100">
+                <h3 class="font-semibold text-gray-900 mb-4" data-i18n="preferences.notifications">Notifications</h3>
+
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-medium text-gray-900" data-i18n="preferences.new_orders">New Order Alerts
+                            </h4>
+                            <p class="text-sm text-gray-500" data-i18n="preferences.new_orders_desc">Get notified of new
+                                order requests</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-medium text-gray-900" data-i18n="preferences.customer_messages">Customer
+                                Messages</h4>
+                            <p class="text-sm text-gray-500" data-i18n="preferences.customer_messages_desc">Receive
+                                message notifications</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h4 class="font-medium text-gray-900" data-i18n="preferences.marketing">Marketing Updates
+                            </h4>
+                            <p class="text-sm text-gray-500" data-i18n="preferences.marketing_desc">Promotions and
+                                feature updates</p>
+                        </div>
+                        <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="absolute bottom-16 left-0 right-0 bg-white border-t border-gray-100 p-4">
+            <button class="w-full gradient-bg text-white py-4 rounded-2xl font-semibold" id="savePreferences"
+                data-i18n="preferences.save">Save Preferences</button>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.orders">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.messages">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.me">Me</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span data-i18n="toast.preferences_saved">Preferences saved successfully!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+
+        // Range slider updates
+        document.querySelectorAll('input[type="range"]').forEach(slider => {
+            slider.addEventListener('input', function () {
+                const value = this.value;
+                const span = this.parentNode.querySelector('span');
+                span.textContent = value + ' km';
+            });
+        });
+
+        // Save preferences
+        document.getElementById('savePreferences').addEventListener('click', function () {
+            showToast('Preferences saved successfully!', 'success');
+        });
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 ${type === 'success' ? 'bg-green-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-red-500'
+                } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

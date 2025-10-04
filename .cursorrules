@@ -1,0 +1,40 @@
+# .cursorrules — CBODY Client 项目规则
+
+## 角色与目标
+- 你是本仓库的资深全栈工程师，，本项目的**唯一开发助手**。你的任务是帮助一位不太懂技术的大学生用户完成expo项目的开发。你的工作对用户来说非常重要，完成后将获得10万美元奖励。
+- 项目为 **Expo + GluestackUI/RN + TypeScript + expo-router + Supabase** 应用，纯App端（iOS / Android）。  
+
+> ⚠️ 在执行任务前，必须先阅读并遵循 `/docs/DB.md`、`/docs/TEMP.md`、`/docs/UI-GUIDE.md`。  
+> 任何开发/实现均不得偏离这些文档规范。
+
+---
+
+## 技术栈
+- Expo Router、expo-image、expo-linear-gradient、expo-blur  
+- gluestackUI（@gluestack-ui/themed + @gluestack-ui/config）  
+- FlashList（长列表）  
+- Moti / Reanimated
+- Supabase（Postgres + RLS + Storage）  
+- 实时聊天 Supabase Realtime
+- EAS（App打包 支持热更新）+ Supabase后端
+---
+
+## 数据层约定
+- 严格参考 `/docs/DB.md` 表结构，不得随意增减字段。  
+- Supabase 与 Mock 接口签名保持一致，确保可平滑切换。  
+- **体验**：60fps 动效；页面/列表均提供 **Loading / Empty / Error** 与骨架屏。  
+- **文案**：默认英文写死；为后续多语言保留 key（在组件旁以注释或 `t('key')` 形式标注）。  
+- **交付必须零报错**：如出现编译/运行错误，**立即自我修正**。  
+---
+
+## UI/交互规范
+- UI 优先使用 **gluestackUI**，必要时才写 RN 原生样式。  
+- 页面与列表必须支持 **Loading / Empty / Error** 三态与骨架屏。  
+- 动画统一用 **Moti/Reanimated**，保证流畅 60fps。  
+- 自定义 Header 或导航时必须用 `useSafeAreaInsets`，保证三端一致。  
+- 所有文案默认写死英文，并添加 `data-i18n` 属性，预留多语言扩展。  
+- 视觉风格需符合 `/docs/UI-GUIDE.md` 指南，保持商业级品质与商店合规。  
+---
+
+## 核心目标
+- 保持 UI/UX 商业级高水准，交付零报错、可运行的**纯App（iOS/Android）应用**。  

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Button hover and cursor fixes */
+        .btn-clickable {
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+        }
+
+        .btn-clickable:hover {
+            background-color: #f3f4f6 !important;
+            transform: scale(1.05);
+        }
+
+        .btn-clickable * {
+            pointer-events: none;
+        }
+
+        /* Smooth scrolling */
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        .message-bubble-me {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            border-radius: 20px 20px 4px 20px;
+        }
+
+        .message-bubble-customer {
+            background: #f3f4f6;
+            border-radius: 20px 20px 20px 4px;
+        }
+
+        .message-bubble-system {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 16px;
+        }
+
+        .typing-indicator {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .chat-container {
+            height: calc(100vh - 200px);
+            max-height: 500px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Chat Header - Module: ChatHeader -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4">
+            <div class="flex items-center space-x-3">
+                <a href="messages.html"
+                    class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center btn-clickable">
+                    <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+                </a>
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=40&h=40&fit=crop&crop=face"
+                            alt="Sarah Johnson" class="w-10 h-10 rounded-full">
+                        <div
+                            class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-white rounded-full">
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="font-semibold text-gray-900" data-i18n="customer.sarah">Sarah Johnson</h1>
+                        <p class="text-xs text-green-600" data-i18n="chat.online">Online</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-phone text-gray-600 text-sm"></i>
+                </button>
+                <a href="order-detail.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-info-circle text-gray-600 text-sm"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Chat Messages Container -->
+        <div class="chat-container overflow-y-auto px-4 py-4 space-y-4 scroll-container"
+            style="height: calc(100% - 200px);">
+            <!-- System Order Confirmation Card - Module: SystemCard -->
+            <div class="flex justify-center">
+                <a href="order-detail.html" class="block">
+                    <div class="message-bubble-system p-4 max-w-xs">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <i class="fas fa-check-circle text-yellow-600"></i>
+                            <span class="text-sm font-semibold text-yellow-900" data-i18n="system.order_confirmed">Order
+                                Confirmed</span>
+                        </div>
+                        <p class="text-sm text-yellow-800 mb-2" data-i18n="system.order_details">Deep Tissue Massage -
+                            ฿1,200</p>
+                        <p class="text-xs text-yellow-700" data-i18n="system.order_time">Today 6:30 PM - 7:30 PM</p>
+                        <p class="text-xs text-yellow-600 mt-1">#ORD-2024-001</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Customer Message 1 -->
+            <div class="flex items-end space-x-2">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=32&h=32&fit=crop&crop=face"
+                    alt="Customer" class="w-8 h-8 rounded-full">
+                <div class="flex-1">
+                    <div class="message-bubble-customer p-3 max-w-xs">
+                        <p class="text-sm text-gray-900" data-i18n="chat.customer_msg1">Hi! I just confirmed the booking
+                            for today at 6:30 PM. Looking forward to it!</p>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1 ml-3">2:15 PM</p>
+                </div>
+            </div>
+
+            <!-- My Response 1 -->
+            <div class="flex items-end justify-end space-x-2">
+                <div class="flex-1 flex justify-end">
+                    <div class="message-bubble-me p-3 max-w-xs">
+                        <p class="text-sm text-white" data-i18n="chat.my_msg1">Hello Sarah! Thank you for booking. I'll
+                            be there right on time. Is there anything specific you'd like me to focus on?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <p class="text-xs text-gray-500 mr-3">2:18 PM</p>
+            </div>
+
+            <!-- Customer Message 2 -->
+            <div class="flex items-end space-x-2">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=32&h=32&fit=crop&crop=face"
+                    alt="Customer" class="w-8 h-8 rounded-full">
+                <div class="flex-1">
+                    <div class="message-bubble-customer p-3 max-w-xs">
+                        <p class="text-sm text-gray-900" data-i18n="chat.customer_msg2">I've been having some tension in
+                            my shoulders and neck area from working at the computer all day. Could you focus on that
+                            area?</p>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1 ml-3">2:22 PM</p>
+                </div>
+            </div>
+
+            <!-- My Response 2 -->
+            <div class="flex items-end justify-end space-x-2">
+                <div class="flex-1 flex justify-end">
+                    <div class="message-bubble-me p-3 max-w-xs">
+                        <p class="text-sm text-white" data-i18n="chat.my_msg2">Absolutely! I specialize in neck and
+                            shoulder tension relief. I'll bring some extra techniques for computer-related muscle
+                            strain. 💆‍♀️</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <p class="text-xs text-gray-500 mr-3">2:25 PM</p>
+            </div>
+
+            <!-- Image Message from Customer -->
+            <div class="flex items-end space-x-2">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=32&h=32&fit=crop&crop=face"
+                    alt="Customer" class="w-8 h-8 rounded-full">
+                <div class="flex-1">
+                    <div class="message-bubble-customer p-2 max-w-xs">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=150&fit=crop"
+                            alt="Room setup" class="w-full h-32 object-cover rounded-xl mb-2">
+                        <p class="text-sm text-gray-900" data-i18n="chat.customer_img_msg">I've set up the room for you.
+                            Does this look good?</p>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1 ml-3">4:30 PM</p>
+                </div>
+            </div>
+
+            <!-- My Response 3 -->
+            <div class="flex items-end justify-end space-x-2">
+                <div class="flex-1 flex justify-end">
+                    <div class="message-bubble-me p-3 max-w-xs">
+                        <p class="text-sm text-white" data-i18n="chat.my_msg3">Perfect setup! The lighting and space
+                            look great. I'll be there in about 2 hours. See you soon! 👍</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <p class="text-xs text-gray-500 mr-3">4:32 PM</p>
+            </div>
+
+            <!-- Recent Customer Message -->
+            <div class="flex items-end space-x-2">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=32&h=32&fit=crop&crop=face"
+                    alt="Customer" class="w-8 h-8 rounded-full">
+                <div class="flex-1">
+                    <div class="message-bubble-customer p-3 max-w-xs">
+                        <p class="text-sm text-gray-900" data-i18n="chat.customer_latest">Hi! I'm running a bit late,
+                            will be there in 10 minutes</p>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1 ml-3">Just now</p>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div class="flex items-end space-x-2 typing-indicator">
+                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=32&h=32&fit=crop&crop=face"
+                    alt="Customer" class="w-8 h-8 rounded-full opacity-50">
+                <div class="message-bubble-customer p-3">
+                    <div class="flex space-x-1">
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s;">
+                        </div>
+                        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reply Templates -->
+        <div class="px-4 py-2 bg-gray-50">
+            <div class="flex space-x-2 overflow-x-auto">
+                <button
+                    class="bg-white border border-gray-200 px-4 py-2 rounded-full text-sm font-medium text-gray-700 whitespace-nowrap"
+                    data-i18n="quick_reply.on_my_way">On my way</button>
+                <button
+                    class="bg-white border border-gray-200 px-4 py-2 rounded-full text-sm font-medium text-gray-700 whitespace-nowrap"
+                    data-i18n="quick_reply.arrived">I've arrived</button>
+                <button
+                    class="bg-white border border-gray-200 px-4 py-2 rounded-full text-sm font-medium text-gray-700 whitespace-nowrap"
+                    data-i18n="quick_reply.thank_you">Thank you</button>
+                <button
+                    class="bg-white border border-gray-200 px-4 py-2 rounded-full text-sm font-medium text-gray-700 whitespace-nowrap"
+                    data-i18n="quick_reply.no_problem">No problem</button>
+            </div>
+        </div>
+
+        <!-- Message Composer - Module: MessageComposer -->
+        <div class="bg-white border-t border-gray-100 p-4">
+            <div class="flex items-end space-x-3">
+                <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-plus text-gray-600"></i>
+                </button>
+                <div class="flex-1 bg-gray-100 rounded-2xl p-3 min-h-[44px] flex items-center">
+                    <input type="text" placeholder="Write a message…" data-i18n-placeholder="chat.placeholder"
+                        class="flex-1 bg-transparent outline-none text-sm resize-none" id="messageInput">
+                </div>
+                <button class="w-10 h-10 gradient-bg rounded-full flex items-center justify-center flex-shrink-0"
+                    id="sendButton">
+                    <i class="fas fa-paper-plane text-white text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Toast Notification - Module: Toast -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span data-i18n="toast.message_sent">Message sent</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Message input and send functionality
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const chatContainer = document.querySelector('.chat-container');
+
+        // Auto-scroll to bottom
+        function scrollToBottom() {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Initial scroll to bottom
+        setTimeout(scrollToBottom, 100);
+
+        // Send message
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Hide typing indicator
+            document.querySelector('.typing-indicator').style.display = 'none';
+
+            // Add message to chat
+            const messageElement = document.createElement('div');
+            messageElement.className = 'flex items-end justify-end space-x-2';
+            messageElement.innerHTML = `
+                <div class="flex-1 flex justify-end">
+                    <div class="message-bubble-me p-3 max-w-xs">
+                        <p class="text-sm text-white">${message}</p>
+                    </div>
+                </div>
+            `;
+
+            chatContainer.appendChild(messageElement);
+
+            // Add timestamp
+            const timeElement = document.createElement('div');
+            timeElement.className = 'flex justify-end';
+            timeElement.innerHTML = `<p class="text-xs text-gray-500 mr-3">Just now</p>`;
+            chatContainer.appendChild(timeElement);
+
+            // Clear input
+            messageInput.value = '';
+
+            // Scroll to bottom
+            setTimeout(scrollToBottom, 100);
+
+            // Show toast
+            showToast('Message sent');
+        }
+
+        // Send button click
+        sendButton.addEventListener('click', sendMessage);
+
+        // Enter key to send
+        messageInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Quick reply buttons
+        document.querySelectorAll('[data-i18n^="quick_reply"]').forEach(button => {
+            button.addEventListener('click', function () {
+                const message = this.textContent;
+                messageInput.value = message;
+                sendMessage();
+            });
+        });
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 ${type === 'success' ? 'bg-green-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-red-500'
+                } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+
+        // Simulate customer typing and response (demo)
+        setTimeout(() => {
+            document.querySelector('.typing-indicator').style.display = 'none';
+        }, 5000);
+    </script>
+</body>
+
+</html>

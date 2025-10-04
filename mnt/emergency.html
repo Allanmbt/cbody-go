@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Smooth scrolling */
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        .emergency-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-red-50 border-b border-red-200 flex items-center justify-between px-6">
+            <a href="me.html" class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-red-900" data-i18n="emergency.title">Emergency Contact</h1>
+            <div class="w-8"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 scroll-container" style="height: calc(100% - 110px);">
+            <!-- Emergency Alert -->
+            <div class="bg-red-500 text-white p-6 text-center">
+                <div
+                    class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 emergency-pulse">
+                    <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
+                </div>
+                <h2 class="text-xl font-bold mb-2" data-i18n="emergency.alert_title">Safety First</h2>
+                <p class="text-red-100" data-i18n="emergency.alert_desc">Use these contacts if you feel unsafe or need
+                    immediate assistance</p>
+            </div>
+
+            <!-- Emergency Contacts -->
+            <div class="p-4 space-y-4">
+                <!-- CBODY Emergency Hotline -->
+                <a href="tel:+66123456789" class="block bg-red-50 border-2 border-red-200 p-4 rounded-2xl">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-14 h-14 bg-red-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-phone text-white text-xl"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-red-900" data-i18n="emergency.cbody_hotline">CBODY Emergency
+                                Hotline</h3>
+                            <p class="text-red-700 font-medium">+66 2 123-4567</p>
+                            <p class="text-sm text-red-600" data-i18n="emergency.hotline_desc">24/7 immediate assistance
+                            </p>
+                        </div>
+                        <i class="fas fa-phone text-red-500 text-xl"></i>
+                    </div>
+                </a>
+
+                <!-- Police -->
+                <a href="tel:191" class="block bg-white p-4 rounded-2xl card-shadow border-l-4 border-blue-500">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-blue-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900" data-i18n="emergency.police">Police</h4>
+                            <p class="text-blue-600 font-medium">191</p>
+                        </div>
+                        <i class="fas fa-phone text-blue-600"></i>
+                    </div>
+                </a>
+
+                <!-- Medical Emergency -->
+                <a href="tel:1669" class="block bg-white p-4 rounded-2xl card-shadow border-l-4 border-green-500">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-ambulance text-green-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900" data-i18n="emergency.medical">Medical Emergency</h4>
+                            <p class="text-green-600 font-medium">1669</p>
+                        </div>
+                        <i class="fas fa-phone text-green-600"></i>
+                    </div>
+                </a>
+
+                <!-- Fire Department -->
+                <a href="tel:199" class="block bg-white p-4 rounded-2xl card-shadow border-l-4 border-orange-500">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-fire text-orange-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900" data-i18n="emergency.fire">Fire Department</h4>
+                            <p class="text-orange-600 font-medium">199</p>
+                        </div>
+                        <i class="fas fa-phone text-orange-600"></i>
+                    </div>
+                </a>
+
+                <!-- Tourist Police -->
+                <a href="tel:1155" class="block bg-white p-4 rounded-2xl card-shadow border-l-4 border-purple-500">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-map-signs text-purple-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900" data-i18n="emergency.tourist_police">Tourist Police
+                            </h4>
+                            <p class="text-purple-600 font-medium">1155</p>
+                        </div>
+                        <i class="fas fa-phone text-purple-600"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Safety Tips -->
+            <div class="p-4">
+                <h3 class="font-semibold text-gray-900 mb-4" data-i18n="emergency.safety_tips">Safety Tips</h3>
+
+                <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-2xl">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-lightbulb text-yellow-600 mt-1"></i>
+                        <div>
+                            <h4 class="font-medium text-yellow-900 mb-2" data-i18n="emergency.tips_title">Before Your
+                                Service</h4>
+                            <ul class="text-sm text-yellow-800 space-y-1">
+                                <li data-i18n="emergency.tip1">• Verify customer identity and location</li>
+                                <li data-i18n="emergency.tip2">• Share your location with a trusted contact</li>
+                                <li data-i18n="emergency.tip3">• Trust your instincts - leave if uncomfortable</li>
+                                <li data-i18n="emergency.tip4">• Keep your phone charged and accessible</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Location Share -->
+            <div class="p-4">
+                <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-medium text-blue-900" data-i18n="emergency.share_location">Share Current
+                            Location</h4>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-xl text-sm font-medium"
+                            data-i18n="emergency.share_now">Share Now</button>
+                    </div>
+                    <p class="text-sm text-blue-700" data-i18n="emergency.share_desc">Send your real-time location to
+                        emergency contacts</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.orders">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.messages">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.me">Me</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span data-i18n="toast.location_shared">Location shared with emergency contacts</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Share location functionality
+        document.querySelector('[data-i18n="emergency.share_now"]').addEventListener('click', function () {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    showToast('Location shared with emergency contacts', 'success');
+                }, function () {
+                    showToast('Unable to get location. Please enable location services.', 'error');
+                });
+            } else {
+                showToast('Geolocation is not supported by this browser.', 'error');
+            }
+        });
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 ${type === 'success' ? 'bg-green-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-red-500'
+                } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-top {
+            padding-top: env(safe-area-inset-top, 44px);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Tab switching styles */
+        .tab-button.active {
+            background: white;
+            color: #1f2937;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-button:not(.active) {
+            background: transparent;
+            color: #6b7280;
+        }
+
+        /* Enhanced UI styles */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Smooth scrolling */
+        .smooth-scroll {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        /* Button hover and cursor fixes */
+        .btn-clickable {
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+        }
+
+        .btn-clickable:hover {
+            background-color: #f3f4f6 !important;
+            transform: scale(1.05);
+        }
+
+        .btn-clickable * {
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <h1 class="text-xl font-bold text-gray-900" data-i18n="orders.title">My Orders</h1>
+            <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center btn-clickable">
+                <i class="fas fa-search text-gray-600 text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 smooth-scroll" style="height: calc(100% - 110px);">
+            <!-- Segmented Control - Module: SegControl -->
+            <div class="p-4">
+                <div class="bg-gray-100 p-1 rounded-2xl flex">
+                    <button id="ongoing-tab"
+                        class="tab-button flex-1 py-3 px-4 rounded-xl bg-white shadow-sm text-sm font-medium text-gray-900 flex items-center justify-center space-x-2 transition-all duration-200">
+                        <span data-i18n="orders.ongoing">Ongoing</span>
+                        <span class="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">3</span>
+                    </button>
+                    <button id="past-tab"
+                        class="tab-button flex-1 py-3 px-4 rounded-xl text-sm font-medium text-gray-500 flex items-center justify-center transition-all duration-200">
+                        <span data-i18n="orders.past">Past</span>
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Ongoing Orders Tab Content -->
+            <div id="ongoing-content" class="tab-content px-4 space-y-4">
+                <!-- Order Card 1 - Pending -->
+                <a href="order-detail.html" class="block">
+                    <div class="bg-white rounded-3xl p-4 card-shadow card-hover">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="text-sm font-semibold text-gray-900">#ORD-2024-001</span>
+                                    <span
+                                        class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium"
+                                        data-i18n="status.pending">Pending</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1" data-i18n="services.deep_tissue_massage">
+                                    Deep Tissue Massage</h3>
+                                <p class="text-sm text-gray-500" data-i18n="orders.time_window">Today 6:30 PM - 7:30 PM
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold gradient-text">฿1,200</p>
+                                <p class="text-xs text-gray-500">2.3 km</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fas fa-map-marker-alt text-gray-400 text-sm"></i>
+                            <span class="text-sm text-gray-600" data-i18n="address.sample1">Sukhumvit 21, Asoke,
+                                Bangkok</span>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-4">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=48&h=48&fit=crop&crop=face"
+                                alt="Customer" class="w-6 h-6 rounded-full">
+                            <span class="text-sm text-gray-700" data-i18n="customer.sarah">Sarah Johnson</span>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="flex space-x-2">
+                            <button class="flex-1 gradient-bg text-white py-2.5 rounded-xl text-sm font-medium"
+                                data-i18n="actions.accept">Accept</button>
+                            <button
+                                class="px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-medium text-gray-700"
+                                data-i18n="actions.reject">Reject</button>
+                            <button
+                                class="px-3 py-2.5 border border-gray-200 rounded-xl text-gray-600 flex items-center justify-center min-w-[44px] min-h-[44px]">
+                                <i class="fas fa-phone text-sm"></i>
+                            </button>
+                            <button
+                                class="px-3 py-2.5 border border-gray-200 rounded-xl text-gray-600 flex items-center justify-center min-w-[44px] min-h-[44px]">
+                                <i class="fas fa-comment text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Order Card 2 - On the way -->
+                <a href="order-detail.html" class="block">
+                    <div class="bg-white rounded-3xl p-4 card-shadow card-hover">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="text-sm font-semibold text-gray-900">#ORD-2024-002</span>
+                                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium"
+                                        data-i18n="status.on_the_way">On the way</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1" data-i18n="services.aromatherapy">
+                                    Aromatherapy Session</h3>
+                                <p class="text-sm text-gray-500" data-i18n="orders.time_window2">Today 8:00 PM - 9:00 PM
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold gradient-text">฿900</p>
+                                <p class="text-xs text-gray-500">1.8 km</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fas fa-map-marker-alt text-gray-400 text-sm"></i>
+                            <span class="text-sm text-gray-600" data-i18n="address.sample2">Silom Road, Bangrak,
+                                Bangkok</span>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                                alt="Customer" class="w-6 h-6 rounded-full">
+                            <span class="text-sm text-gray-700" data-i18n="customer.mike">Mike Chen</span>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="flex space-x-2">
+                            <button class="flex-1 gradient-bg text-white py-2.5 rounded-xl text-sm font-medium"
+                                data-i18n="actions.arrived">I've Arrived</button>
+                            <button
+                                class="px-3 py-2.5 border border-gray-200 rounded-xl text-gray-600 flex items-center justify-center min-w-[44px] min-h-[44px]">
+                                <i class="fas fa-phone text-sm"></i>
+                            </button>
+                            <button
+                                class="px-3 py-2.5 border border-gray-200 rounded-xl text-gray-600 flex items-center justify-center min-w-[44px] min-h-[44px]">
+                                <i class="fas fa-comment text-sm"></i>
+                            </button>
+                            <button
+                                class="px-3 py-2.5 border border-gray-200 rounded-xl text-gray-600 flex items-center justify-center min-w-[44px] min-h-[44px]">
+                                <i class="fas fa-map-location-dot text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Order Card 3 - Ongoing -->
+                <a href="order-detail.html" class="block">
+                    <div class="bg-white rounded-3xl p-4 card-shadow card-hover">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="text-sm font-semibold text-gray-900">#ORD-2024-003</span>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium"
+                                        data-i18n="status.ongoing">In Progress</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1" data-i18n="services.sports_massage">Sports
+                                    Massage</h3>
+                                <p class="text-sm text-gray-500" data-i18n="orders.time_window3">Today 7:00 PM - 8:30 PM
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold gradient-text">฿1,500</p>
+                                <p class="text-xs text-gray-500">0.5 km</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fas fa-map-marker-alt text-gray-400 text-sm"></i>
+                            <span class="text-sm text-gray-600" data-i18n="address.sample3">Ploenchit Road, Lumpini,
+                                Bangkok</span>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-4">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
+                                alt="Customer" class="w-6 h-6 rounded-full">
+                            <span class="text-sm text-gray-700" data-i18n="customer.anna">Anna Wilson</span>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="flex space-x-2">
+                            <button class="flex-1 gradient-bg text-white py-2.5 rounded-xl text-sm font-medium"
+                                data-i18n="actions.complete">Complete Service</button>
+                            <button
+                                class="px-3 py-2.5 border border-gray-200 rounded-xl text-gray-600 flex items-center justify-center min-w-[44px] min-h-[44px]">
+                                <i class="fas fa-phone text-sm"></i>
+                            </button>
+                            <button
+                                class="px-3 py-2.5 border border-gray-200 rounded-xl text-gray-600 flex items-center justify-center min-w-[44px] min-h-[44px]">
+                                <i class="fas fa-comment text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Past Orders Tab Content -->
+            <div id="past-content" class="tab-content px-4 space-y-4" style="display: none;">
+                <!-- Past Order Card 1 - Completed -->
+                <a href="order-detail.html" class="block">
+                    <div class="bg-white rounded-3xl p-4 card-shadow card-hover">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="text-sm font-semibold text-gray-900">#ORD-2024-004</span>
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium"
+                                        data-i18n="status.completed">Completed</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1" data-i18n="services.aromatherapy">
+                                    Aromatherapy Session</h3>
+                                <p class="text-sm text-gray-500" data-i18n="orders.past_time1">Dec 10 2:00 PM - 3:00 PM
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold gradient-text">฿1,800</p>
+                                <div class="flex items-center text-xs text-yellow-500 mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="ml-1">5.0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fas fa-map-marker-alt text-gray-400 text-sm"></i>
+                            <span class="text-sm text-gray-600" data-i18n="address.sample4">Emporium Suites,
+                                Bangkok</span>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                                alt="Customer" class="w-6 h-6 rounded-full">
+                            <span class="text-sm text-gray-700" data-i18n="customer.mike">Mike Chen</span>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="flex space-x-2">
+                            <button class="flex-1 bg-blue-500 text-white py-2.5 rounded-xl text-sm font-medium"
+                                data-i18n="actions.book_again">Book Again</button>
+                            <button
+                                class="px-3 py-2.5 border border-gray-200 rounded-xl text-gray-600 flex items-center justify-center min-w-[44px] min-h-[44px]">
+                                <i class="fas fa-comment text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Past Order Card 2 - Cancelled -->
+                <a href="order-detail.html" class="block">
+                    <div class="bg-white rounded-3xl p-4 card-shadow opacity-75">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="text-sm font-semibold text-gray-900">#ORD-2024-005</span>
+                                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-medium"
+                                        data-i18n="status.cancelled">Cancelled</span>
+                                </div>
+                                <h3 class="font-semibold text-gray-900 mb-1" data-i18n="services.deep_tissue_massage">
+                                    Deep Tissue Massage</h3>
+                                <p class="text-sm text-gray-500" data-i18n="orders.past_time2">Nov 28 3:00 PM - 4:00 PM
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-lg font-bold text-gray-400">฿2,200</p>
+                                <p class="text-xs text-gray-400">Refunded</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fas fa-map-marker-alt text-gray-400 text-sm"></i>
+                            <span class="text-sm text-gray-600" data-i18n="address.sample5">Central Embassy,
+                                Bangkok</span>
+                        </div>
+
+                        <div class="flex items-center space-x-2 mb-4">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
+                                alt="Customer" class="w-6 h-6 rounded-full">
+                            <span class="text-sm text-gray-700" data-i18n="customer.anna">Anna Wilson</span>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="flex space-x-2">
+                            <button class="flex-1 gradient-bg text-white py-2.5 rounded-xl text-sm font-medium"
+                                data-i18n="actions.book_again">Book Again</button>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="p-4 pb-8">
+                <button class="w-full py-3 border border-gray-200 rounded-xl text-sm font-medium text-gray-700"
+                    data-i18n="orders.load_more">Load More Orders</button>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar - Module: TabBar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="home.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-briefcase text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.workbench">Workbench</span>
+                </a>
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg gradient-text"></i>
+                    <span class="text-xs font-medium gradient-text" data-i18n="tabs.orders">Orders</span>
+                    <div class="w-6 h-0.5 gradient-bg rounded-full"></div>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.messages">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.me">Me</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Toast Notification - Module: Toast (hidden by default) -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span data-i18n="toast.order_accepted">Order accepted successfully!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const ongoingTab = document.getElementById('ongoing-tab');
+            const pastTab = document.getElementById('past-tab');
+            const ongoingContent = document.getElementById('ongoing-content');
+            const pastContent = document.getElementById('past-content');
+
+            // Set initial state
+            ongoingTab.classList.add('active');
+
+            ongoingTab.addEventListener('click', function () {
+                // Switch tabs
+                ongoingTab.classList.add('active');
+                pastTab.classList.remove('active');
+
+                // Switch content
+                ongoingContent.style.display = 'block';
+                pastContent.style.display = 'none';
+            });
+
+            pastTab.addEventListener('click', function () {
+                // Switch tabs
+                pastTab.classList.add('active');
+                ongoingTab.classList.remove('active');
+
+                // Switch content
+                pastContent.style.display = 'block';
+                ongoingContent.style.display = 'none';
+            });
+        });
+
+        // Demo: Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 ${type === 'success' ? 'bg-green-500' : type === 'warning' ? 'bg-yellow-500' : 'bg-red-500'
+                } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

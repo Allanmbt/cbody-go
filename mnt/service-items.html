@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Items - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Smooth scrolling */
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <a href="me.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-gray-900" data-i18n="service_items.title">Service Items</h1>
+            <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-plus text-gray-600 text-sm"></i>
+            </button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 scroll-container" style="height: calc(100% - 110px);">
+            <!-- Skills & Tags -->
+            <div class="p-6 bg-white border-b border-gray-100">
+                <h3 class="font-semibold text-gray-900 mb-4" data-i18n="service_items.skills">My Skills</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium"
+                        data-i18n="skills.deep_tissue">Deep Tissue</span>
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
+                        data-i18n="skills.swedish">Swedish</span>
+                    <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium"
+                        data-i18n="skills.aromatherapy">Aromatherapy</span>
+                    <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium"
+                        data-i18n="skills.sports">Sports Massage</span>
+                    <span class="bg-pink-100 text-pink-800 px-3 py-1 rounded-full text-sm font-medium"
+                        data-i18n="skills.prenatal">Prenatal</span>
+                    <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm font-medium"
+                        data-i18n="skills.reflexology">Reflexology</span>
+                </div>
+            </div>
+
+            <!-- Service Cards -->
+            <div class="p-4 space-y-4">
+                <h3 class="font-semibold text-gray-900 mb-4" data-i18n="service_items.services">Available Services</h3>
+
+                <!-- Service Card 1 -->
+                <div class="bg-white p-4 rounded-2xl card-shadow">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=60&h=60&fit=crop"
+                            alt="Deep Tissue Massage" class="w-15 h-15 rounded-xl object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900" data-i18n="services.deep_tissue_massage">Deep Tissue
+                                Massage</h4>
+                            <p class="text-sm text-gray-600" data-i18n="services.deep_tissue_desc">Therapeutic massage
+                                for muscle tension</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="text-lg font-bold gradient-text">฿1,200</span>
+                                <span class="text-sm text-gray-500">/ 60 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium"
+                            data-i18n="status.active">Active</span>
+                        <button class="text-blue-600 text-sm font-medium" data-i18n="service_items.edit">Edit</button>
+                    </div>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="bg-white p-4 rounded-2xl card-shadow">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=60&h=60&fit=crop"
+                            alt="Aromatherapy" class="w-15 h-15 rounded-xl object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900" data-i18n="services.aromatherapy">Aromatherapy
+                                Session</h4>
+                            <p class="text-sm text-gray-600" data-i18n="services.aromatherapy_desc">Relaxing massage
+                                with essential oils</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="text-lg font-bold gradient-text">฿900</span>
+                                <span class="text-sm text-gray-500">/ 60 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium"
+                            data-i18n="status.active">Active</span>
+                        <button class="text-blue-600 text-sm font-medium" data-i18n="service_items.edit">Edit</button>
+                    </div>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="bg-white p-4 rounded-2xl card-shadow">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=60&h=60&fit=crop"
+                            alt="Sports Massage" class="w-15 h-15 rounded-xl object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900" data-i18n="services.sports_massage">Sports Massage
+                            </h4>
+                            <p class="text-sm text-gray-600" data-i18n="services.sports_desc">Recovery and performance
+                                massage</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="text-lg font-bold gradient-text">฿1,500</span>
+                                <span class="text-sm text-gray-500">/ 90 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium"
+                            data-i18n="status.active">Active</span>
+                        <button class="text-blue-600 text-sm font-medium" data-i18n="service_items.edit">Edit</button>
+                    </div>
+                </div>
+
+                <!-- Inactive Service -->
+                <div class="bg-white p-4 rounded-2xl card-shadow opacity-60">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=60&h=60&fit=crop"
+                            alt="Hot Stone" class="w-15 h-15 rounded-xl object-cover">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-gray-900" data-i18n="services.hot_stone">Hot Stone Therapy
+                            </h4>
+                            <p class="text-sm text-gray-600" data-i18n="services.hot_stone_desc">Therapeutic heated
+                                stone massage</p>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="text-lg font-bold text-gray-500">฿1,800</span>
+                                <span class="text-sm text-gray-500">/ 90 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs font-medium"
+                            data-i18n="status.inactive">Inactive</span>
+                        <button class="text-blue-600 text-sm font-medium"
+                            data-i18n="service_items.activate">Activate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.orders">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.messages">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.me">Me</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adjust Clock-in - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Notice Banner -->
+        <div class="bg-yellow-50 border-b border-yellow-200 p-3 px-6">
+            <div class="flex items-start space-x-2">
+                <i class="fas fa-info-circle text-yellow-600 text-sm mt-0.5"></i>
+                <div>
+                    <p class="text-sm font-medium text-yellow-900">Important Notice</p>
+                    <p class="text-xs text-yellow-800 mt-1">You can only make one clock-in adjustment within 48 hours. Please choose your times carefully.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <a href="home.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-gray-900">Adjust Clock-in</h1>
+            <div class="w-10"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-8 scroll-container" style="height: calc(100% - 150px);">
+            <div class="p-6">
+                <!-- Current Schedule Info -->
+                <div class="bg-white p-5 rounded-2xl card-shadow mb-6">
+                    <h3 class="font-semibold text-gray-900 mb-3">Current Schedule</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Clock-in Time</span>
+                            <span class="text-sm font-semibold text-gray-900">13:00</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">Clock-out Time</span>
+                            <span class="text-sm font-semibold text-gray-900">22:00</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-2 border-t border-gray-100">
+                            <span class="text-sm text-gray-600">Total Hours</span>
+                            <span class="text-sm font-semibold gradient-text">9 hours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Adjustment Form -->
+                <div class="bg-white p-5 rounded-2xl card-shadow">
+                    <h3 class="font-semibold text-gray-900 mb-4">New Schedule</h3>
+
+                    <div class="space-y-4">
+                        <!-- Clock-in Time -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Clock-in Time</label>
+                            <input type="time" id="clockInTime" value="13:00"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+
+                        <!-- Clock-out Time -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Clock-out Time</label>
+                            <input type="time" id="clockOutTime" value="22:00"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                        </div>
+
+                        <!-- Calculated Hours -->
+                        <div class="bg-gray-50 p-4 rounded-xl">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-700">New Total Hours</span>
+                                <span id="totalHours" class="text-lg font-bold gradient-text">9 hours</span>
+                            </div>
+                        </div>
+
+                        <!-- Reason -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Reason for Change<span class="text-red-500">*</span></label>
+                            <select id="adjustmentReason"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                                <option value="">Select reason</option>
+                                <option value="personal">Personal commitment</option>
+                                <option value="health">Health appointment</option>
+                                <option value="training">Training session</option>
+                                <option value="family">Family matter</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Additional Notes -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes (Optional)</label>
+                            <textarea id="adjustmentNotes" rows="3"
+                                class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+                                placeholder="Provide any additional details..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warning Message -->
+                <div class="mt-4 bg-red-50 border border-red-200 p-4 rounded-xl">
+                    <div class="flex items-start space-x-2">
+                        <i class="fas fa-exclamation-triangle text-red-600 text-sm mt-0.5"></i>
+                        <p class="text-xs text-red-800">
+                            Once submitted, this adjustment will take effect immediately. You will not be able to make another adjustment for 48 hours.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button id="submitBtn"
+                    class="w-full gradient-bg text-white py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] mt-6">
+                    Submit Adjustment
+                </button>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300 z-50">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span>Adjustment submitted successfully</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Calculate total hours
+        function calculateHours() {
+            const clockIn = document.getElementById('clockInTime').value;
+            const clockOut = document.getElementById('clockOutTime').value;
+
+            if (clockIn && clockOut) {
+                const [inHour, inMin] = clockIn.split(':').map(Number);
+                const [outHour, outMin] = clockOut.split(':').map(Number);
+
+                let totalMinutes = (outHour * 60 + outMin) - (inHour * 60 + inMin);
+
+                // Handle overnight shifts
+                if (totalMinutes < 0) {
+                    totalMinutes += 24 * 60;
+                }
+
+                const hours = Math.floor(totalMinutes / 60);
+                const minutes = totalMinutes % 60;
+
+                const displayText = minutes > 0 ? `${hours}h ${minutes}m` : `${hours} hours`;
+                document.getElementById('totalHours').textContent = displayText;
+            }
+        }
+
+        // Event listeners
+        document.getElementById('clockInTime').addEventListener('change', calculateHours);
+        document.getElementById('clockOutTime').addEventListener('change', calculateHours);
+
+        // Submit button
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const reason = document.getElementById('adjustmentReason').value;
+
+            if (!reason) {
+                showToast('Please select a reason for adjustment', 'error');
+                return;
+            }
+
+            // Show success and redirect
+            showToast('Adjustment submitted successfully', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 2000);
+        });
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 z-50 ${
+                type === 'success' ? 'bg-green-500' :
+                type === 'warning' ? 'bg-yellow-500' :
+                type === 'error' ? 'bg-red-500' :
+                'bg-blue-500'
+            } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+
+</html>

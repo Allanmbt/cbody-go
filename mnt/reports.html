@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Smooth scrolling */
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <a href="me.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-gray-900" data-i18n="reports.title">Reports</h1>
+            <button class="gradient-bg text-white px-4 py-2 rounded-xl text-sm font-medium"
+                data-i18n="reports.new">New</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 scroll-container" style="height: calc(100% - 110px);">
+            <!-- Reports List -->
+            <div class="p-4 space-y-4">
+                <!-- Report Item 1 -->
+                <div class="bg-white p-4 rounded-2xl card-shadow">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-900" data-i18n="reports.incident_report">Incident Report
+                            </h3>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="reports.customer_concern">Customer
+                                expressed concern about service quality</p>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <span class="text-xs text-gray-500">#ORD-2024-001</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-500">Sep 18, 2024</span>
+                            </div>
+                        </div>
+                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-medium"
+                            data-i18n="status.pending">Pending</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-blue-500 text-white py-2 rounded-xl text-sm font-medium"
+                            data-i18n="reports.view">View</button>
+                        <button class="px-4 py-2 border border-gray-200 rounded-xl text-sm font-medium text-gray-700"
+                            data-i18n="reports.edit">Edit</button>
+                    </div>
+                </div>
+
+                <!-- Report Item 2 -->
+                <div class="bg-white p-4 rounded-2xl card-shadow">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-900" data-i18n="reports.safety_report">Safety Report</h3>
+                            <p class="text-sm text-gray-600 mt-1" data-i18n="reports.location_access">Difficulty
+                                accessing customer location</p>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <span class="text-xs text-gray-500">#ORD-2024-015</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs text-gray-500">Sep 15, 2024</span>
+                            </div>
+                        </div>
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium"
+                            data-i18n="status.resolved">Resolved</span>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="flex-1 bg-gray-100 text-gray-700 py-2 rounded-xl text-sm font-medium"
+                            data-i18n="reports.view">View</button>
+                    </div>
+                </div>
+
+                <!-- Empty State when no reports -->
+                <div class="text-center py-16 px-6" style="display: none;">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-file-alt text-gray-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2" data-i18n="reports.empty.title">No reports yet
+                    </h3>
+                    <p class="text-gray-500 text-center text-sm" data-i18n="reports.empty.subtitle">Create a report to
+                        document incidents or concerns</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.orders">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.messages">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.me">Me</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

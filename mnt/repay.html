@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Repayment - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <a href="home.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-gray-900">Debt Repayment</h1>
+            <div class="w-10"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-28 scroll-container" style="height: calc(100% - 110px);">
+            <div class="p-6">
+                <!-- Outstanding Balance Card -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-3xl card-shadow mb-6">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i class="fas fa-exclamation-circle text-red-600 text-lg"></i>
+                        <h3 class="font-semibold text-red-900">Outstanding Balance</h3>
+                    </div>
+                    <p class="text-4xl font-bold text-red-900 mb-2">฿1,200</p>
+                    <p class="text-sm text-red-700">Please settle your debt to continue accepting orders</p>
+                </div>
+
+                <!-- Debt Breakdown -->
+                <div class="bg-white p-5 rounded-2xl card-shadow mb-6">
+                    <h3 class="font-semibold text-gray-900 mb-4">Debt Details</h3>
+                    <div class="space-y-3">
+                        <!-- Item 1 -->
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                            <div>
+                                <p class="font-medium text-gray-900">Equipment Damage</p>
+                                <p class="text-xs text-gray-500">Order #ORD-2024-188</p>
+                            </div>
+                            <p class="font-bold text-red-600">฿800</p>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                            <div>
+                                <p class="font-medium text-gray-900">Late Cancellation Fee</p>
+                                <p class="text-xs text-gray-500">Order #ORD-2024-195</p>
+                            </div>
+                            <p class="font-bold text-red-600">฿400</p>
+                        </div>
+
+                        <!-- Total -->
+                        <div class="flex items-center justify-between pt-2">
+                            <p class="font-semibold text-gray-900">Total Outstanding</p>
+                            <p class="text-xl font-bold text-red-600">฿1,200</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Repayment Amount -->
+                <div class="bg-white p-5 rounded-2xl card-shadow mb-6">
+                    <h3 class="font-semibold text-gray-900 mb-4">Repayment Amount</h3>
+
+                    <div class="space-y-4">
+                        <!-- Amount Input -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Amount (THB)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-medium">฿</span>
+                                <input type="number" id="repayAmount" value="1200" min="1" max="1200"
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Minimum: ฿1 · Maximum: ฿1,200</p>
+                        </div>
+
+                        <!-- Quick Amount Buttons -->
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setAmount(300)"
+                                class="py-2 bg-gray-100 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-200 transition-all">
+                                ฿300
+                            </button>
+                            <button onclick="setAmount(600)"
+                                class="py-2 bg-gray-100 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-200 transition-all">
+                                ฿600
+                            </button>
+                            <button onclick="setAmount(900)"
+                                class="py-2 bg-gray-100 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-200 transition-all">
+                                ฿900
+                            </button>
+                            <button onclick="setAmount(1200)"
+                                class="py-2 bg-emerald-100 rounded-xl text-sm font-medium text-emerald-700 hover:bg-emerald-200 transition-all">
+                                All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="bg-white p-5 rounded-2xl card-shadow">
+                    <h3 class="font-semibold text-gray-900 mb-4">Payment Method</h3>
+
+                    <div class="space-y-3">
+                        <!-- Deduct from Balance -->
+                        <label class="flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-all">
+                            <input type="radio" name="paymentMethod" value="balance" checked
+                                class="w-5 h-5 text-emerald-500 focus:ring-emerald-500">
+                            <div class="ml-3 flex-1">
+                                <p class="font-medium text-gray-900">Deduct from Balance</p>
+                                <p class="text-xs text-gray-500">Available: ฿3,400</p>
+                            </div>
+                            <i class="fas fa-wallet text-emerald-600"></i>
+                        </label>
+
+                        <!-- Bank Transfer -->
+                        <label class="flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-all">
+                            <input type="radio" name="paymentMethod" value="transfer"
+                                class="w-5 h-5 text-emerald-500 focus:ring-emerald-500">
+                            <div class="ml-3 flex-1">
+                                <p class="font-medium text-gray-900">Bank Transfer</p>
+                                <p class="text-xs text-gray-500">Manual transfer</p>
+                            </div>
+                            <i class="fas fa-building-columns text-blue-600"></i>
+                        </label>
+
+                        <!-- Credit/Debit Card -->
+                        <label class="flex items-center p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-all">
+                            <input type="radio" name="paymentMethod" value="card"
+                                class="w-5 h-5 text-emerald-500 focus:ring-emerald-500">
+                            <div class="ml-3 flex-1">
+                                <p class="font-medium text-gray-900">Credit/Debit Card</p>
+                                <p class="text-xs text-gray-500">Visa, Mastercard</p>
+                            </div>
+                            <i class="fas fa-credit-card text-purple-600"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 safe-area-bottom">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-sm text-gray-600">Repaying</span>
+                <span id="displayAmount" class="text-xl font-bold text-gray-900">฿1,200</span>
+            </div>
+            <button id="confirmRepayBtn"
+                class="w-full gradient-bg text-white py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]">
+                Confirm Repayment
+            </button>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300 z-50">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span>Repayment successful</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set amount helper
+        function setAmount(amount) {
+            document.getElementById('repayAmount').value = amount;
+            updateDisplayAmount();
+        }
+
+        // Update display amount
+        function updateDisplayAmount() {
+            const amount = document.getElementById('repayAmount').value || 0;
+            document.getElementById('displayAmount').textContent = `฿${parseInt(amount).toLocaleString()}`;
+        }
+
+        // Update on input change
+        document.getElementById('repayAmount').addEventListener('input', updateDisplayAmount);
+
+        // Confirm repayment
+        document.getElementById('confirmRepayBtn').addEventListener('click', function() {
+            const amount = parseInt(document.getElementById('repayAmount').value);
+            const method = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            if (!amount || amount < 1) {
+                showToast('Please enter a valid amount', 'error');
+                return;
+            }
+
+            if (amount > 1200) {
+                showToast('Amount exceeds outstanding balance', 'error');
+                return;
+            }
+
+            // Show success
+            showToast('Repayment submitted successfully', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 2000);
+        });
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 z-50 ${
+                type === 'success' ? 'bg-green-500' :
+                type === 'warning' ? 'bg-yellow-500' :
+                type === 'error' ? 'bg-red-500' :
+                'bg-blue-500'
+            } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+
+        // Initialize
+        updateDisplayAmount();
+    </script>
+</body>
+
+</html>

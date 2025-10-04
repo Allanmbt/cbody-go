@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <a href="home.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                <i class="fas fa-arrow-left text-gray-600 text-sm"></i>
+            </a>
+            <h1 class="text-lg font-semibold text-gray-900">Withdrawal</h1>
+            <div class="w-10"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-28 scroll-container" style="height: calc(100% - 110px);">
+            <div class="p-6">
+                <!-- Available Balance Card -->
+                <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-3xl card-shadow mb-6">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <i class="fas fa-wallet text-green-600 text-lg"></i>
+                        <h3 class="font-semibold text-green-900">Available Balance</h3>
+                    </div>
+                    <p class="text-4xl font-bold text-green-900 mb-2">฿3,400</p>
+                    <p class="text-sm text-green-700">Ready for withdrawal</p>
+                </div>
+
+                <!-- Withdrawal Amount -->
+                <div class="bg-white p-5 rounded-2xl card-shadow mb-6">
+                    <h3 class="font-semibold text-gray-900 mb-4">Withdrawal Amount</h3>
+
+                    <div class="space-y-4">
+                        <!-- Amount Input -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Amount (THB)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 font-medium">฿</span>
+                                <input type="number" id="withdrawAmount" value="" placeholder="0" min="100" max="3400" step="100"
+                                    class="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">Minimum: ฿100 · Maximum: ฿3,400</p>
+                        </div>
+
+                        <!-- Quick Amount Buttons -->
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="setAmount(500)"
+                                class="py-2 bg-gray-100 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-200 transition-all">
+                                ฿500
+                            </button>
+                            <button onclick="setAmount(1000)"
+                                class="py-2 bg-gray-100 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-200 transition-all">
+                                ฿1,000
+                            </button>
+                            <button onclick="setAmount(2000)"
+                                class="py-2 bg-gray-100 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-200 transition-all">
+                                ฿2,000
+                            </button>
+                            <button onclick="setAmount(3400)"
+                                class="py-2 bg-emerald-100 rounded-xl text-sm font-medium text-emerald-700 hover:bg-emerald-200 transition-all">
+                                All
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Fee Information -->
+                    <div class="mt-4 bg-blue-50 border border-blue-200 p-3 rounded-xl">
+                        <div class="flex items-start space-x-2">
+                            <i class="fas fa-info-circle text-blue-600 text-sm mt-0.5"></i>
+                            <div class="text-xs text-blue-800">
+                                <p class="font-medium mb-1">Withdrawal Fee: Free</p>
+                                <p>Withdrawals are processed within 1-3 business days</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Account -->
+                <div class="bg-white p-5 rounded-2xl card-shadow mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-semibold text-gray-900">Bank Account</h3>
+                        <button class="text-sm text-emerald-600 font-medium hover:underline">Change</button>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-gray-800 to-gray-900 p-4 rounded-2xl text-white">
+                        <div class="flex items-center space-x-2 mb-3">
+                            <i class="fas fa-building-columns"></i>
+                            <p class="font-semibold">Kasikorn Bank</p>
+                        </div>
+                        <p class="text-2xl font-mono tracking-wider mb-2">123-4-56789-0</p>
+                        <p class="text-sm text-gray-300">Alex Thompson</p>
+                    </div>
+                </div>
+
+                <!-- Withdrawal Summary -->
+                <div class="bg-white p-5 rounded-2xl card-shadow">
+                    <h3 class="font-semibold text-gray-900 mb-4">Withdrawal Summary</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                            <span class="text-sm text-gray-600">Withdrawal Amount</span>
+                            <span id="summaryAmount" class="font-semibold text-gray-900">฿0</span>
+                        </div>
+                        <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                            <span class="text-sm text-gray-600">Processing Fee</span>
+                            <span class="font-semibold text-green-600">Free</span>
+                        </div>
+                        <div class="flex items-center justify-between pt-2">
+                            <span class="font-semibold text-gray-900">You Will Receive</span>
+                            <span id="summaryTotal" class="text-xl font-bold gradient-text">฿0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="mt-4 bg-yellow-50 border border-yellow-200 p-3 rounded-xl">
+                    <div class="flex items-start space-x-2">
+                        <i class="fas fa-exclamation-triangle text-yellow-600 text-sm mt-0.5"></i>
+                        <p class="text-xs text-yellow-800">
+                            Please ensure your bank account information is correct. Incorrect details may result in failed transfers and processing delays.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Bar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 safe-area-bottom">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-sm text-gray-600">Withdrawing</span>
+                <span id="displayAmount" class="text-xl font-bold text-gray-900">฿0</span>
+            </div>
+            <button id="confirmWithdrawBtn"
+                class="w-full gradient-bg text-white py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]">
+                Confirm Withdrawal
+            </button>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-green-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300 z-50">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle"></i>
+                <span>Withdrawal request submitted</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const maxBalance = 3400;
+
+        // Set amount helper
+        function setAmount(amount) {
+            document.getElementById('withdrawAmount').value = amount;
+            updateDisplayAmount();
+        }
+
+        // Update display amounts
+        function updateDisplayAmount() {
+            const amount = parseInt(document.getElementById('withdrawAmount').value) || 0;
+            const displayText = `฿${amount.toLocaleString()}`;
+
+            document.getElementById('displayAmount').textContent = displayText;
+            document.getElementById('summaryAmount').textContent = displayText;
+            document.getElementById('summaryTotal').textContent = displayText;
+        }
+
+        // Update on input change
+        document.getElementById('withdrawAmount').addEventListener('input', updateDisplayAmount);
+
+        // Confirm withdrawal
+        document.getElementById('confirmWithdrawBtn').addEventListener('click', function() {
+            const amount = parseInt(document.getElementById('withdrawAmount').value);
+
+            if (!amount || amount < 100) {
+                showToast('Minimum withdrawal amount is ฿100', 'error');
+                return;
+            }
+
+            if (amount > maxBalance) {
+                showToast('Amount exceeds available balance', 'error');
+                return;
+            }
+
+            // Show success
+            showToast('Withdrawal request submitted successfully', 'success');
+
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 2000);
+        });
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 z-50 ${
+                type === 'success' ? 'bg-green-500' :
+                type === 'warning' ? 'bg-yellow-500' :
+                type === 'error' ? 'bg-red-500' :
+                'bg-blue-500'
+            } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+
+        // Initialize
+        updateDisplayAmount();
+    </script>
+</body>
+
+</html>

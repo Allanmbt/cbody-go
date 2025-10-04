@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Me - CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom, 34px);
+        }
+
+        /* Button hover and cursor fixes */
+        .btn-clickable {
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+        }
+
+        .btn-clickable:hover {
+            background-color: #f3f4f6 !important;
+            transform: scale(1.05);
+        }
+
+        .btn-clickable * {
+            pointer-events: none;
+        }
+
+        /* Enhanced UI styles */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Smooth scrolling and better scroll behavior */
+        .scroll-container {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Fix device container height */
+        .device-container {
+            height: 812px;
+            max-height: 90vh;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] device-container bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- iOS Status Bar -->
+        <div class="h-11 gradient-bg flex items-center justify-between px-6 text-white text-sm font-medium">
+            <span>9:41</span>
+            <div class="flex items-center space-x-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-three-quarters text-xs"></i>
+            </div>
+        </div>
+
+        <!-- App Header -->
+        <div class="h-16 bg-white border-b border-gray-100 flex items-center justify-between px-6">
+            <h1 class="text-xl font-bold text-gray-900" data-i18n="me.title">My Profile</h1>
+            <a href="profile-settings.html"
+                class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center btn-clickable">
+                <i class="fas fa-cog text-gray-600 text-sm"></i>
+            </a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto pb-20 scroll-container" style="height: calc(100% - 110px);">
+            <!-- Profile Header - Module: ProfileHeader -->
+            <div class="bg-white p-6 border-b border-gray-100">
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face"
+                            alt="Profile" class="w-20 h-20 rounded-full">
+                        <div
+                            class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-3 border-white rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-white text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-bold text-gray-900" data-i18n="provider.name">Alex Thompson</h2>
+                        <p class="text-gray-600" data-i18n="provider.title">Therapist</p>
+                        <p class="text-sm text-gray-500" data-i18n="provider.location">Bangkok, Thailand</p>
+                        <div class="flex items-center mt-2">
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <span class="text-sm font-semibold text-gray-900">4.9</span>
+                                <span class="text-xs text-gray-500">(127 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KPI Cards - Module: KpiMiniCard -->
+            <div class="px-6 pt-6">
+                <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden">
+                    <button type="button" class="w-full flex items-center justify-between px-5 py-4 text-left" data-collapse-target="performance-panel" aria-controls="performance-panel" aria-expanded="false">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900" data-i18n="me.performance">Performance</h3>
+                            <p class="text-xs text-gray-500 mt-1" data-i18n="me.performance_hint">Tap to view key metrics</p>
+                        </div>
+                        <span class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 transform transition-transform duration-200" data-rotate-icon>
+                            <i class="fas fa-chevron-down"></i>
+                        </span>
+                    </button>
+                    <div id="performance-panel" class="px-5 pb-5 space-y-4 hidden">
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Orders Count -->
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-2xl">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-list-check text-blue-600 text-lg"></i>
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">+12%</span>
+                                </div>
+                                <p class="text-2xl font-bold text-blue-900">47</p>
+                                <p class="text-sm text-blue-700" data-i18n="kpi.orders_count">Total Orders</p>
+                            </div>
+
+                            <!-- Upsell Rate -->
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-2xl">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-arrow-trend-up text-green-600 text-lg"></i>
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">+5%</span>
+                                </div>
+                                <p class="text-2xl font-bold text-green-900">32%</p>
+                                <p class="text-sm text-green-700" data-i18n="kpi.upsell_rate">Upsell Rate</p>
+                            </div>
+
+                            <!-- Positive Rating -->
+                            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 rounded-2xl">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-star text-yellow-600 text-lg"></i>
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">+2%</span>
+                                </div>
+                                <p class="text-2xl font-bold text-yellow-900">96%</p>
+                                <p class="text-sm text-yellow-700" data-i18n="kpi.rating_positive">Positive Rating</p>
+                            </div>
+
+                            <!-- Repeat Rate -->
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-2xl">
+                                <div class="flex items-center justify-between mb-2">
+                                    <i class="fas fa-repeat text-purple-600 text-lg"></i>
+                                    <span class="text-xs text-green-600 bg-green-100 px-2 py-1 rounded-full">+8%</span>
+                                </div>
+                                <p class="text-2xl font-bold text-purple-900">68%</p>
+                                <p class="text-sm text-purple-700" data-i18n="kpi.repeat_rate">Repeat Rate</p>
+                            </div>
+                        </div>
+
+                        <!-- Cancel Rate (separate row) -->
+                        <div class="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-2xl">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fas fa-times-circle text-red-600 text-lg"></i>
+                                    <span class="text-sm text-red-700" data-i18n="kpi.cancel_rate">Cancel Rate</span>
+                                </div>
+                                <span class="text-xs text-red-600 bg-red-100 px-2 py-1 rounded-full">-2%</span>
+                            </div>
+                            <p class="text-2xl font-bold text-red-900">4%</p>
+                            <p class="text-xs text-red-600" data-i18n="kpi.cancel_rate_note">Keep below 5% for bonus eligibility</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions Menu -->
+            <div class="p-6">
+                <div class="bg-gradient-to-br from-emerald-50 via-white to-cyan-50 border border-emerald-100 rounded-3xl p-5 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-900" data-i18n="me.quick_actions">Quick Actions</h3>
+                        <span class="text-xs font-medium text-emerald-600 uppercase tracking-wide" data-i18n="me.quick_actions_hint">Top tasks</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <a href="schedule.html" class="bg-white/90 p-4 rounded-2xl card-shadow card-hover flex flex-col items-center text-center space-y-3">
+                            <div class="w-12 h-12 gradient-bg rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-calendar-days text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-900" data-i18n="me.schedule">Schedule</p>
+                                <p class="text-xs text-gray-500" data-i18n="me.schedule_desc">Manage availability</p>
+                            </div>
+                        </a>
+
+                        <a href="income.html" class="bg-white/90 p-4 rounded-2xl card-shadow card-hover flex flex-col items-center text-center space-y-3">
+                            <div class="w-12 h-12 gradient-bg rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-sack-dollar text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-900" data-i18n="me.income">Income</p>
+                                <p class="text-xs text-gray-500" data-i18n="me.income_desc">Earnings & bills</p>
+                            </div>
+                        </a>
+
+                        <a href="messages.html" class="bg-white/90 p-4 rounded-2xl card-shadow card-hover flex flex-col items-center text-center space-y-3">
+                            <div class="w-12 h-12 gradient-bg rounded-2xl flex items-center justify-center">
+                                <i class="fas fa-comments text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-900" data-i18n="tabs.messages">Messages</p>
+                                <p class="text-xs text-gray-500" data-i18n="me.messages_desc">Follow up clients</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Secondary Actions List -->
+                <div class="space-y-3">
+                    <a href="reports.html" class="block bg-white p-4 rounded-2xl card-shadow card-hover">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-file-alt text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900" data-i18n="me.reports">Reports</h4>
+                                    <p class="text-sm text-gray-500" data-i18n="me.reports_desc">Incident logs</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </a>
+
+                    <a href="service-items.html" class="block bg-white p-4 rounded-2xl card-shadow card-hover">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-spa text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900" data-i18n="me.service_items">Service Items
+                                    </h4>
+                                    <p class="text-sm text-gray-500" data-i18n="me.service_items_desc">Skills & pricing
+                                    </p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </a>
+
+                    <a href="preferences.html" class="block bg-white p-4 rounded-2xl card-shadow card-hover">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-sliders-h text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900" data-i18n="me.preferences">Preferences</h4>
+                                    <p class="text-sm text-gray-500" data-i18n="me.preferences_desc">Acceptance settings
+                                    </p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </a>
+
+                    <a href="profile-settings.html" class="block bg-white p-4 rounded-2xl card-shadow card-hover">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
+                                    <i class="fas fa-user-cog text-gray-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900" data-i18n="me.profile_settings">Profile
+                                        Settings</h4>
+                                    <p class="text-sm text-gray-500" data-i18n="me.profile_settings_desc">Personal
+                                        details</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Support Section -->
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4" data-i18n="me.support_help">Support & Help</h3>
+
+                    <div class="space-y-3">
+                        <a href="support.html" class="block bg-white p-4 rounded-2xl card-shadow card-hover">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-headset text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-900" data-i18n="me.support">Support</h4>
+                                        <p class="text-sm text-gray-500" data-i18n="me.support_desc">Get help & contact
+                                            us</p>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </a>
+
+                        <a href="emergency.html"
+                            class="block bg-red-50 border border-red-200 p-4 rounded-2xl card-hover">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-exclamation-triangle text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-red-900" data-i18n="me.emergency">Emergency Contact
+                                        </h4>
+                                        <p class="text-sm text-red-700" data-i18n="me.emergency_desc">Quick safety
+                                            assistance</p>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right text-red-400"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar - Module: TabBar -->
+        <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 safe-area-bottom">
+            <div class="flex items-center">
+                <a href="home.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-briefcase text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.workbench">Workbench</span>
+                </a>
+                <a href="orders.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-list-check text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.orders">Orders</span>
+                </a>
+                <a href="messages.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-comments text-lg text-gray-400"></i>
+                    <span class="text-xs font-medium text-gray-500" data-i18n="tabs.messages">Messages</span>
+                </a>
+                <a href="me.html" class="flex-1 py-3 flex flex-col items-center space-y-1">
+                    <i class="fas fa-user text-lg gradient-text"></i>
+                    <span class="text-xs font-medium gradient-text" data-i18n="tabs.me">Me</span>
+                    <div class="w-6 h-0.5 gradient-bg rounded-full"></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Toast Notification - Module: Toast -->
+        <div id="toast"
+            class="absolute top-20 left-4 right-4 bg-blue-500 text-white p-4 rounded-xl shadow-lg transform -translate-y-full opacity-0 transition-all duration-300">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-info-circle"></i>
+                <span data-i18n="toast.profile_updated">Profile updated successfully</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `absolute top-20 left-4 right-4 p-4 rounded-xl shadow-lg transform transition-all duration-300 ${type === 'success' ? 'bg-green-500' : type === 'warning' ? 'bg-yellow-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+                } text-white translate-y-0 opacity-100`;
+
+            setTimeout(() => {
+                toast.className = toast.className.replace('translate-y-0 opacity-100', '-translate-y-full opacity-0');
+            }, 3000);
+        }
+
+        // Demo: Show profile update toast when settings are accessed
+        document.querySelector('[href="profile-settings.html"]').addEventListener('click', function (e) {
+            e.preventDefault();
+            showToast('Opening profile settings...', 'info');
+            setTimeout(() => {
+                window.location.href = 'profile-settings.html';
+            }, 1000);
+        });
+
+        // Toggle performance metrics panel
+        const performanceToggle = document.querySelector('[data-collapse-target="performance-panel"]');
+        if (performanceToggle) {
+            const performancePanel = document.getElementById('performance-panel');
+            const rotateIcon = performanceToggle.querySelector('[data-rotate-icon]');
+            performanceToggle.addEventListener('click', () => {
+                if (!performancePanel) {
+                    return;
+                }
+                const willShow = performancePanel.classList.contains('hidden');
+                performancePanel.classList.toggle('hidden');
+                performanceToggle.setAttribute('aria-expanded', String(willShow));
+                if (rotateIcon) {
+                    rotateIcon.classList.toggle('rotate-180');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
+

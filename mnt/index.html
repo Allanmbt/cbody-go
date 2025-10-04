@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBODY Partner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #39b59a, #46c5a7);
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <!-- Device Shell -->
+    <div class="w-[375px] h-[812px] bg-white rounded-[24px] shadow-xl overflow-hidden relative">
+        <!-- Splash Screen -->
+        <div class="w-full h-full gradient-bg flex flex-col items-center justify-center">
+            <!-- Logo/Brand Area -->
+            <div class="fade-in mb-8">
+                <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg">
+                    <i class="fas fa-briefcase text-3xl text-gray-700"></i>
+                </div>
+            </div>
+
+            <!-- App Name -->
+            <div class="fade-in mb-2" style="animation-delay: 0.3s;">
+                <h1 class="text-white text-2xl font-bold" data-i18n="splash.title">CBODY Partner</h1>
+            </div>
+
+            <!-- Tagline -->
+            <div class="fade-in mb-12" style="animation-delay: 0.5s;">
+                <p class="text-white/80 text-sm" data-i18n="splash.tagline">Your wellness business companion</p>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div class="fade-in" style="animation-delay: 0.8s;">
+                <div class="spinner"></div>
+            </div>
+
+            <!-- Loading Text -->
+            <div class="fade-in mt-6" style="animation-delay: 1s;">
+                <p class="text-white/60 text-sm" data-i18n="splash.loading">Loading your dashboard...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-redirect to orders.html after 3 seconds
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 3000);
+    </script>
+</body>
+
+</html>
