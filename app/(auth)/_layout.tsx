@@ -7,8 +7,8 @@ export default function AuthLayout() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="sign-in-phone" />
       <Stack.Screen name="sign-in" />
+      <Stack.Screen name="unauthorized" />
     </Stack>
   );
 }

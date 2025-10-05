@@ -2,7 +2,7 @@
 
 ## 数据库架构概览
 
-本文档详细说明了CBODY上门服务平台的数据库架构设计，根据业务需求和性能考虑进行了全面优化。
+本文档详细说明了CBODY上门服务平台的数据库架构设计。系统从UniCloud迁移到Supabase平台，根据业务需求和性能考虑进行了全面优化。
 
 ### 主要优化方向
 
@@ -68,9 +68,8 @@
 | id | UUID | 是 | uuid_generate_v4() | 主键 |
 | user_id | UUID | 否 | NULL | Supabase 用户ID |
 | city_id | INTEGER | 否 | NULL | 城市ID |
-| category_id | INTEGER | 否 | NULL | 分类ID |
 | telegram_id | BIGINT | 否 | NULL | Telegram 群组 ID |
-| girl_number | INTEGER | 是 | - | 女孩工号，用于搜索 |
+| girl_number | SERIAL / INTEGER | 否 | 1001起 | 数据库触发器自增 |
 | username | VARCHAR(50) | 是 | - | 唯一用户名，用于URL路径 |
 | name | VARCHAR(50) | 是 | - | 显示昵称，可重复 |
 | profile | JSONB | 是 | '{"en":"","zh":"","th":""}' | 多语言简介 |
@@ -86,7 +85,6 @@
 | rating | DECIMAL(3,2) | 否 | 0 | 评分 |
 | total_sales | INTEGER | 否 | 0 | 接单总量 |
 | total_reviews | INTEGER | 否 | 0 | 评论总数 |
-| booking_count | INTEGER | 否 | 0 | 预订次数 |
 | max_travel_distance | INTEGER | 否 | 10 | 最大服务距离（km） |
 | work_hours | JSONB | 否 | '{"start": "19:00", "end": "10:00"}' | 工作时间段 |
 | is_verified | BOOLEAN | 否 | false | 是否已认证 |
@@ -101,10 +99,9 @@
 - UNIQUE INDEX idx_girls_username (username)
 - UNIQUE INDEX idx_girls_girl_number (girl_number)
 - INDEX idx_girls_city_id (city_id)
-- INDEX idx_girls_category_id (category_id)
+- INDEX idx_girls_category_array ON public.girls USING GIN (category_id);
 - INDEX idx_girls_rating (rating DESC)
 - INDEX idx_girls_badge (badge) WHERE badge IS NOT NULL
-- INDEX idx_girls_booking_count (booking_count DESC)
 - INDEX idx_girls_total_sales (total_sales DESC)
 - INDEX idx_girls_name_search ON girls USING GIN(to_tsvector('english', name))
 - INDEX idx_girls_tags_gin ON girls USING GIN(tags)
@@ -140,26 +137,72 @@
 - FOREIGN KEY (girl_id) REFERENCES girls(id) ON DELETE CASCADE
 
 
-## girls_media（女孩媒体表）
+## girls_media（技师媒体表）
 
 | 字段名 | 数据类型 | 必填 | 默认值 | 描述 |
 |--------|----------|------|--------|------|
-| id | UUID | 是 | uuid_generate_v4() | 主键 |
-| girl_id | UUID | 是 | - | 关联女孩ID |
-| media_type | VARCHAR(10) | 是 | - | 媒体类型（image/video） |
-| url | TEXT | 是 | - | 媒体URL |
-| thumbnail_url | TEXT | 否 | NULL | 缩略图URL |
-| sort_order | INTEGER | 否 | 0 | 排序优先级 |
+| id | UUID | 是 | gen_random_uuid() | 主键 |
+| girl_id | UUID | 是 | - | 关联技师ID |
+| kind | media_kind | 是 | - | 媒体类型（image/video/live_photo） |
+| storage_key | TEXT | 是 | - | 主资源路径（如 image.jpg 或 video.mp4） |
+| thumb_key | TEXT | 否 | NULL | 缩略图/封面路径 |
+| meta | JSONB | 是 | '{}'::jsonb | 轻元数据（mime/size/width/height/duration/live_photo配对信息） |
+| min_user_level | SMALLINT | 是 | 0 | 会员最低可见等级（0=公开） |
+| status | media_status | 是 | 'pending' | 审核状态（pending/approved/rejected） |
+| reviewed_by | UUID | 否 | NULL | 审核人ID |
+| reviewed_at | TIMESTAMPTZ | 否 | NULL | 审核时间 |
+| reject_reason | TEXT | 否 | NULL | 审核驳回原因 |
+| sort_order | INTEGER | 是 | 0 | 技师可调整排序 |
+| created_by | UUID | 是 | - | 创建者（技师对应的 auth.uid） |
 | created_at | TIMESTAMPTZ | 是 | NOW() | 创建时间 |
+| updated_at | TIMESTAMPTZ | 是 | NOW() | 更新时间 |
 
 **索引**：
 - PRIMARY KEY (id)
-- INDEX idx_girls_media_girl_id (girl_id)
-- INDEX idx_girls_media_type (media_type)
-- INDEX idx_girls_media_sort (girl_id, sort_order)
+- INDEX idx_gm_girl_sort (girl_id, sort_order)
+- INDEX idx_gm_status (status)
+- INDEX idx_gm_level (min_user_level)
 
 **外键约束**：
 - FOREIGN KEY (girl_id) REFERENCES girls(id) ON DELETE CASCADE
+- FOREIGN KEY (reviewed_by) REFERENCES auth.users(id) ON DELETE SET NULL
+
+**枚举类型**：
+- media_kind: 'image', 'video', 'live_photo'
+- media_status: 'pending', 'approved', 'rejected'
+
+**meta 字段结构示例**：
+```json
+{
+  "mime": "image/jpeg",
+  "size": 1024000,
+  "width": 1920,
+  "height": 1080,
+  "duration": 15,
+  "live": {
+    "image_key": "path/to/image.jpg",
+    "video_key": "path/to/video.mov"
+  }
+}
+
+```
+
+## girls_categories（技师分类关联表）
+
+| 字段名 | 数据类型 | 必填 | 默认值 | 描述 |
+|--------|----------|------|--------|------|
+| girl_id | UUID | 是 | - | 技师ID，关联girls表 |
+| category_id | INTEGER | 是 | - | 分类ID，关联categories表 |
+| created_at | TIMESTAMPTZ | 是 | NOW() | 创建时间 |
+
+**索引**：
+- PRIMARY KEY (girl_id, category_id)
+- INDEX idx_girls_categories_girl_id (girl_id)
+- INDEX idx_girls_categories_category_id (category_id)
+
+**外键约束**：
+- FOREIGN KEY (girl_id) REFERENCES girls(id) ON DELETE CASCADE
+- FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE RESTRICT
 
 
 ## services（服务项目表）

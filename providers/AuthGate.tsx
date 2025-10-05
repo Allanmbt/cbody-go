@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { useRouter, useSegments } from 'expo-router';
 import { supabase } from '@/lib/supabase';
 import type { Session } from '@supabase/supabase-js';
+import { useRouter, useSegments } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 /**
- * AuthGate - Global authentication guard
+ * AuthGate - Simple authentication guard
  * Redirects users based on auth state:
  * - Unauthenticated -> /(auth)/sign-in
  * - Authenticated -> /(tabs)
@@ -16,6 +16,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Initialize auth state
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -35,20 +36,25 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  // Handle navigation based on auth state
   useEffect(() => {
     if (isLoading) return;
 
     const inAuthGroup = segments[0] === '(auth)';
-    const inTabsGroup = segments[0] === '(tabs)';
+    const inUnauthorizedPage = segments[1] === 'unauthorized';
 
+    // No session -> redirect to sign-in
     if (!session && !inAuthGroup) {
-      // Redirect to email sign-in (default) if not authenticated
       router.replace('/(auth)/sign-in');
-    } else if (session && inAuthGroup) {
-      // Redirect to tabs if authenticated and in auth group
+      return;
+    }
+
+    // Has session and in auth group (but NOT on unauthorized page) -> redirect to tabs
+    // Allow users to stay on unauthorized page if they're already there
+    if (session && inAuthGroup && !inUnauthorizedPage) {
       router.replace('/(tabs)');
     }
-  }, [session, segments, isLoading]);
+  }, [session, segments, isLoading, router]);
 
   // Show loading screen while checking auth
   if (isLoading) {

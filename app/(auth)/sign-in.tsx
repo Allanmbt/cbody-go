@@ -2,7 +2,6 @@ import { validateEmail, validatePassword } from '@/features/auth/api';
 import { useSignIn } from '@/features/auth/hooks';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {
@@ -27,7 +26,7 @@ export default function SignInScreen() {
   const [passwordError, setPasswordError] = useState('');
   const [touched, setTouched] = useState({ email: false, password: false });
 
-  const { mutate: signIn, isPending, error, failedAttempts, isInCooldown } = useSignIn();
+  const { mutate: signIn, isPending, error } = useSignIn();
 
   // Validate on blur
   const handleEmailBlur = () => {
@@ -91,11 +90,6 @@ export default function SignInScreen() {
 
     if (!validatePassword(password)) {
       setPasswordError('Password must be at least 6 characters with letters and numbers');
-      return;
-    }
-
-    // Check cooldown
-    if (isInCooldown) {
       return;
     }
 
@@ -202,26 +196,6 @@ export default function SignInScreen() {
               )}
             </View>
 
-            {/* Failed Attempts Warning */}
-            {failedAttempts >= 3 && failedAttempts < 5 && (
-              <View style={styles.warningContainer}>
-                <Ionicons name="warning-outline" size={16} color="#f59e0b" />
-                <Text style={styles.warningText}>
-                  {5 - failedAttempts} attempt{5 - failedAttempts > 1 ? 's' : ''} remaining
-                </Text>
-              </View>
-            )}
-
-            {/* Cooldown Warning */}
-            {isInCooldown && (
-              <View style={styles.warningContainer}>
-                <Ionicons name="time-outline" size={16} color="#ef4444" />
-                <Text style={styles.warningText}>
-                  Too many failed attempts. Please try again later.
-                </Text>
-              </View>
-            )}
-
             {/* Server Error */}
             {error && (
               <View style={styles.errorContainer}>
@@ -236,7 +210,7 @@ export default function SignInScreen() {
             style={styles.buttonContainer}
             activeOpacity={0.8}
             onPress={handleLogin}
-            disabled={isPending || !isFormValid || isInCooldown}
+            disabled={isPending || !isFormValid}
           >
             <LinearGradient
               colors={['#39b59a', '#46c5a7']}
@@ -244,7 +218,7 @@ export default function SignInScreen() {
               end={{ x: 1, y: 1 }}
               style={[
                 styles.button,
-                (isPending || !isFormValid || isInCooldown) && styles.buttonDisabled,
+                (isPending || !isFormValid) && styles.buttonDisabled,
               ]}
             >
               {isPending ? (
@@ -259,25 +233,6 @@ export default function SignInScreen() {
                 </Text>
               )}
             </LinearGradient>
-          </TouchableOpacity>
-
-          {/* Divider */}
-          <View style={styles.dividerContainer}>
-            <View style={styles.divider} />
-            <Text style={styles.dividerText} data-i18n="login.or">or</Text>
-            <View style={styles.divider} />
-          </View>
-
-          {/* Email OTP Option */}
-          <TouchableOpacity
-            style={styles.emailOptionContainer}
-            activeOpacity={0.8}
-            onPress={() => router.replace('/(auth)/sign-in-email')}
-          >
-            <Ionicons name="mail-outline" size={20} color="#39b59a" />
-            <Text style={styles.emailOptionText} data-i18n="login.signInWithEmail">
-              Sign in with Email Code
-            </Text>
           </TouchableOpacity>
 
           {/* Terms & Privacy */}
@@ -447,7 +402,8 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
       },
       android: {
-        elevation: 3,
+        // Remove elevation to avoid shadow issues with overflow:hidden
+        elevation: 0,
       },
     }),
   },
@@ -457,7 +413,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonDisabled: {
-    opacity: 0.5,
+    opacity: 0.4,
+    ...Platform.select({
+      android: {
+        // On Android, use backgroundColor overlay instead of opacity
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+      },
+    }),
   },
   buttonContent: {
     flexDirection: 'row',
@@ -485,38 +447,5 @@ const styles = StyleSheet.create({
     color: '#39b59a',
     fontWeight: '600',
     lineHeight: 18,
-  },
-  dividerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 24,
-  },
-  divider: {
-    flex: 1,
-    height: 1,
-    backgroundColor: '#e5e7eb',
-  },
-  dividerText: {
-    fontSize: 14,
-    color: '#9ca3af',
-    marginHorizontal: 16,
-  },
-  emailOptionContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: '#39b59a',
-    backgroundColor: '#ffffff',
-    marginBottom: 16,
-  },
-  emailOptionText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#39b59a',
-    marginLeft: 8,
   },
 });

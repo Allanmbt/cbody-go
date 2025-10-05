@@ -1,7 +1,7 @@
-import 'react-native-url-polyfill/auto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 import { Platform } from 'react-native';
+import 'react-native-url-polyfill/auto';
 import { ENV } from './env';
 
 // Use localStorage for web, AsyncStorage for native
@@ -53,6 +53,25 @@ export type Database = {
           profile: Record<string, string>;
           avatar_url: string | null;
           is_blocked: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+      };
+      girls_media: {
+        Row: {
+          id: string;
+          girl_id: string;
+          kind: 'image' | 'video' | 'live_photo';
+          storage_key: string;
+          thumb_key: string | null;
+          meta: Record<string, any>;
+          min_user_level: number;
+          status: 'pending' | 'approved' | 'rejected';
+          reviewed_by: string | null;
+          reviewed_at: string | null;
+          reject_reason: string | null;
+          sort_order: number;
+          created_by: string;
           created_at: string;
           updated_at: string;
         };

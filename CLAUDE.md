@@ -6,12 +6,12 @@
 
 > ⚠️ 在执行任务前，必须先阅读并遵循 `/docs/DB.md`、`/docs/TEMP.md`、`/docs/UI-GUIDE.md`。  
 > 任何开发/实现均不得偏离这些文档规范。
-
+> 注意：执行完成后 你不允许给我任何 修复文档，直接告诉我执行完成即可。
 ---
 
 ## 技术栈
 - Expo Router、expo-image、expo-linear-gradient、expo-blur  
-- gluestackUI（@gluestack-ui/themed + @gluestack-ui/config）  
+- 优先使用gluestackUI（@gluestack-ui/themed + @gluestack-ui/config）  
 - FlashList（长列表）  
 - Moti / Reanimated
 - Supabase（Postgres + RLS + Storage）  
@@ -34,6 +34,10 @@
 - 自定义 Header 或导航时必须用 `useSafeAreaInsets`，保证三端一致。  
 - 所有文案默认写死英文，并添加 `data-i18n` 属性，预留多语言扩展。  
 - 视觉风格需符合 `/docs/UI-GUIDE.md` 指南，保持商业级品质与商店合规。  
+---
+
+## 回复约束
+- 完成任务后 不要回复和创建任何md文档，只回复一句“老大 已经搞定了！”即可。
 ---
 
 ## 核心目标
